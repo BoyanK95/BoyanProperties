@@ -12,6 +12,18 @@ BoyanProperties aims to provide a platform for showcasing real estate properties
 
 - **Account Authentication:** User authentication will be a key feature, allowing users to create accounts, log in, and manage their own property listings. This will provide a personalized experience and ensure data security.
 
+- **What we will be building:**
+
+     **Advanced Authentication:** Implement JWT, Firebase, and Google OAuth for secure and seamless user access.
+     **Real-world CRUD Operations:** Create, read, update, and delete property listings using MongoDB.
+     **User-friendly Features:** Enhance the user experience with image uploads, property listing management, and more.
+     **Advanced Search Functionality:** Implement cutting-edge search features to help users find what they're looking for.
+     **Deployment Made Easy:** Learn to deploy your MERN real estate app for free using the 'render' platform.
+
+🔥 **Prerequisites:**
+
+A basic understanding of JavaScript and React is recommended, but if you're eager to dive into full-stack development and excited about building a real estate marketplace, you're more than ready to get started.
+
 ## Development Status
 
 As of now, development for BoyanProperties is just getting started. The project is in its early stages, and there's a lot of work ahead. We'll be building and refining the features mentioned above, as well as many others to create a robust Real Estate Marketplace.
@@ -24,3 +36,4 @@ To get involved with the project or to run it locally on your machine, follow th
 2. Install the necessary dependencies:
    ```bash
    npm install
+   ```
