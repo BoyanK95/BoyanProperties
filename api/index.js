@@ -27,7 +27,3 @@ app.listen(3000, () => {
 app.use('/api/user', userRouter)
 
 app.use('/api/auth', authRouter)
-
-// app.get('/', (req, res, next) => {
-//     res.send('Hello world!!!')
-// })
