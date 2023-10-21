@@ -1,6 +1,6 @@
 function SignUp() {
   return (
-    <div>
+    <div className="p-3 max-w-lg mx-auto">
       <h1 className="text-3xl text-center font-semibold my-7">Sign Up</h1>
       <div>
         <form action="POST" className="flex flex-col gap-4">
@@ -25,7 +25,12 @@ function SignUp() {
             id="password"
             className="border p-3 rounded-lg"
           />
-          <button type="submit">SIGN UP</button>
+          <button
+            type="submit"
+            className="bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-90 disabled:opacity-70"
+          >
+            SIGN UP
+          </button>
         </form>
       </div>
     </div>
