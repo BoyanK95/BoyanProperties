@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 
 function SignUp() {
   const [formData, setFormData] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleChange = (e) => {
     setFormData({
@@ -10,15 +12,32 @@ function SignUp() {
       [e.target.id]: e.target.value,
     });
   };
-  console.log(formData);
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     try {
-      const res = await fetch("/api/auth/signup", formData);
-      
-    } catch (error) {
+      const res = await fetch("/api/auth/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+      // console.log(data);
       console.log(error);
+      if (data.success === false) {
+        setIsLoading(false);
+        setError(data.message);
+        return;
+      }
+      setIsLoading(false);
+    } catch (error) {
+      // console.log(error);
+      setIsLoading(false);
+      setError(error.message);
     }
   };
 
@@ -52,12 +71,14 @@ function SignUp() {
             onChange={handleChange}
           />
           <button
+            disabled={isLoading}
             type="submit"
             className="bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-90 disabled:opacity-70"
           >
-            SIGN UP
+            {isLoading ? <p>Loading...</p> : <p>Sign up</p>}
           </button>
         </form>
+        {error && <p className="text-red-500">{error.message}</p>}
       </div>
       <div className="flex gap-2 mt-5">
         <p>Have an account?</p>
