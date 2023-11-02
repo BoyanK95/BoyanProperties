@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useUserCtx } from "../context/userCtx";
 
 export default function SignUp() {
   const [formData, setFormData] = useState({});
-  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const { userState, signInStart, signInSuccess, signInFail } = useUserCtx();
 
   const navigate = useNavigate();
 
@@ -19,7 +20,7 @@ export default function SignUp() {
     e.preventDefault();
 
     try {
-      setIsLoading(true);
+      signInStart();
       const res = await fetch("/api/auth/signup", {
         method: "POST",
         headers: {
@@ -29,16 +30,19 @@ export default function SignUp() {
       });
 
       const data = await res.json();
+
       if (data.success === false) {
-        setIsLoading(false);
+        signInFail(data.message);
         setError(data.message);
         return;
       }
-      setIsLoading(false);
+      console.log("data", data);
+
+      signInSuccess(data);
       setError(null);
       navigate("/sign-in");
     } catch (error) {
-      setIsLoading(false);
+      signInFail(error.message);
       setError(error.message);
     }
   };
@@ -70,10 +74,10 @@ export default function SignUp() {
         />
 
         <button
-          disabled={isLoading}
+          disabled={userState.loading}
           className="bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80"
         >
-          {isLoading ? "Loading..." : "Sign Up"}
+          {userState.loading ? "Loading..." : "Sign Up"}
         </button>
       </form>
       <div className="flex gap-2 mt-5">
