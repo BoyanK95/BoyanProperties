@@ -1,10 +1,40 @@
+import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
+import { app } from "../firebase";
+import { useUserCtx } from "../context/userCtx";
+
 export default function OAuth() {
+  const { signInSuccess } = useUserCtx();
+
   const handleGoogleAuth = async () => {
-    // try {
-        
-    // } catch (error) {
-    //     console.log('Could not sign in with google'. error);
-    // }
+    try {
+      const provider = new GoogleAuthProvider();
+      const auth = getAuth(app);
+
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      console.log("user", user);
+      console.log("displayName", user.displayName);
+      console.log("email", user.email);
+
+      const res = await fetch("/api/auth/google", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: user.displayName,
+          email: user.email,
+          photo: user.photoURL,
+        }),
+      });
+      const data = await res.json();
+      console.log("data", data);
+      signInSuccess(data);
+
+      // This gives you  Access Token.
+      // const credential = provider.credentialFromResult(auth, result);
+      // const token = credential.accessToken;
+    } catch (error) {
+      console.log("Could not sign in with google".error);
+    }
   };
 
   return (
