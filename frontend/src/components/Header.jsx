@@ -1,7 +1,13 @@
 import { FaSearch } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useUserCtx } from "../context/userCtx";
+import { autoProfilePicString } from "../assets/autoProfilePic";
 
 function Header() {
+  const { userState } = useUserCtx();
+  console.log("userState", userState);
+  console.log(userState?.currentUser?.avatar);
+
   return (
     <header className="bg-slate-200 shadow-md">
       <div className="flex justify-between items-center max-w-6xl mx-auto p-3">
@@ -30,11 +36,30 @@ function Header() {
               About
             </li>
           </Link>
-          <Link to="sign-in">
-            <li className="hidden sm:inline text-slate-700 hover:underline">
-              Sign in
-            </li>
-          </Link>
+          {!userState.currentUser ? (
+            <Link to="sign-in">
+              <li className="hidden sm:inline text-slate-700 hover:underline">
+                Sign in
+              </li>
+            </Link>
+          ) : userState.currentUser.avatar ? (
+            <Link to="profile">
+              <img
+                className="rounded-full h-8 w-8 object-cover"
+                src={userState.currentUser.avatar}
+                alt="profile-picture"
+                onError={(e) => (e.target.src = autoProfilePicString)}
+              />
+            </Link>
+          ) : (
+            <Link to="profile">
+              <img
+                className="rounded-full h-8 w-8 object-cover"
+                src={autoProfilePicString}
+                alt="auto-profile-picture"
+              />
+            </Link>
+          )}
         </ul>
       </div>
     </header>

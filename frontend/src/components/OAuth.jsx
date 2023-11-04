@@ -13,9 +13,6 @@ export default function OAuth() {
 
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
-      console.log("user", user);
-      console.log("displayName", user.displayName);
-      console.log("email", user.email);
 
       const res = await fetch("/api/auth/google", {
         method: "POST",
@@ -27,7 +24,6 @@ export default function OAuth() {
         }),
       });
       const data = await res.json();
-      console.log("data", data);
       signInSuccess(data);
       navigate('/')
       // This gives you  Access Token.
