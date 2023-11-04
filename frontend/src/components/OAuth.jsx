@@ -1,10 +1,11 @@
 import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
 import { app } from "../firebase";
 import { useUserCtx } from "../context/userCtx";
+import { useNavigate } from "react-router-dom";
 
 export default function OAuth() {
   const { signInSuccess } = useUserCtx();
-
+  const navigate = useNavigate();
   const handleGoogleAuth = async () => {
     try {
       const provider = new GoogleAuthProvider();
@@ -28,7 +29,7 @@ export default function OAuth() {
       const data = await res.json();
       console.log("data", data);
       signInSuccess(data);
-
+      navigate('/')
       // This gives you  Access Token.
       // const credential = provider.credentialFromResult(auth, result);
       // const token = credential.accessToken;
