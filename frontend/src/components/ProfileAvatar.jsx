@@ -14,11 +14,7 @@ export default function ProfileAvatar({ setFormData, formData }) {
   const fileRef = useRef(null);
   const [file, setFile] = useState(undefined);
   const [fileUploadPercent, setFileUploadPercent] = useState(0);
-  const [fileUploadError, setFileUploadError] = useState("");
-
-  console.log("UploadedFile", file);
-  console.log(fileUploadPercent);
-  console.log("formData", formData);
+  const [fileUploadError, setFileUploadError] = useState(false);
 
   useEffect(() => {
     if (file) {
@@ -39,12 +35,14 @@ export default function ProfileAvatar({ setFormData, formData }) {
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         console.log(`Upload ${progress}% done`);
         setFileUploadPercent(Math.round(progress));
+        setFileUploadError(false);
       },
-      (error) => setFileUploadError(error),
+      () => setFileUploadError(true),
       () => {
-        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) =>
-          setFormData({ ...formData, avatar: downloadURL })
-        );
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          setFormData({ ...formData, avatar: downloadURL });
+          setFileUploadError(false);
+        });
       }
     );
   };
