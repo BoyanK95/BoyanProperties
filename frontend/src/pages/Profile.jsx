@@ -1,11 +1,15 @@
+import { useState } from "react";
 import ProfileAvatar from "../components/ProfileAvatar";
 
 function Profile() {
+  const [formData, setFormData] = useState({});
+
+  console.log('formData', formData);
   return (
     <div className="p-3 max-w-lg mx-auto">
       <h1 className="text-3xl font-semibold text-center my-7">Profile</h1>
       <form className="flex flex-col gap-4">
-        <ProfileAvatar />
+        <ProfileAvatar setFormData={setFormData} formData={formData}/>
         <input
           type="text"
           id="username"
