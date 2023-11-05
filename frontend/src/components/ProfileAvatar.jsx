@@ -18,7 +18,7 @@ export default function ProfileAvatar({ setFormData, formData }) {
 
   console.log("UploadedFile", file);
   console.log(fileUploadPercent);
-  console.log('formData', formData);
+  console.log("formData", formData);
 
   useEffect(() => {
     if (file) {
@@ -49,7 +49,7 @@ export default function ProfileAvatar({ setFormData, formData }) {
     );
   };
 
-  return userState.currentUser?.avatar ? (
+  return (
     <>
       <input
         type="file"
@@ -58,23 +58,25 @@ export default function ProfileAvatar({ setFormData, formData }) {
         accept="image/*"
         onClick={(e) => setFile(e.target.files[0])}
       />
-      <img
-        onClick={() => fileRef.current && fileRef.current.click()}
-        className="rounded-full h-24 w-24 object-cover cursor-pointer self-center mt-2"
-        src={userState.currentUser.avatar}
-        onError={(e) => (e.target.src = autoProfilePicString)}
-        alt="profile-picture"
-      />
-    </>
-  ) : (
-    <>
-      <input type="file" hidden ref={fileRef} />
-      <img
-        onClick={() => fileRef.current && fileRef.current.click()}
-        className="rounded-full h-24 w-24 object-cover cursor-pointer self-center mt-2"
-        src={autoProfilePicString}
-        alt="aut-profile-picture"
-      />
+      {userState.currentUser?.avatar ? (
+        <img
+          onClick={() => fileRef.current && fileRef.current.click()}
+          className="rounded-full h-24 w-24 object-cover cursor-pointer self-center mt-2"
+          src={userState.currentUser.avatar}
+          onError={(e) => (e.target.src = autoProfilePicString)}
+          alt="profile-picture"
+        />
+      ) : (
+        <img
+          onClick={() => fileRef.current && fileRef.current.click()}
+          className="rounded-full h-24 w-24 object-cover cursor-pointer self-center mt-2"
+          src={autoProfilePicString}
+          alt="aut-profile-picture"
+        />
+      )}
+      {fileUploadError && <p className="text-red-800 self-center">Error image upload!</p>}
+      {fileUploadPercent > 0 && fileUploadPercent < 100 && <p className="text-slate-700 self-center">{`Uploading ${fileUploadPercent}%`}</p>}
+      {fileUploadPercent === 100 && <p className="text-green-700 self-center">Image uploaded succesfully!</p>}
     </>
   );
 }
