@@ -3,3 +3,7 @@ export const test = (req, res) => {
         message: 'Hello my World!'
     })
 }
+
+export const updateUser = (req, res, next) => {
+    
+}
