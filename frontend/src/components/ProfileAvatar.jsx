@@ -9,6 +9,7 @@ import {
 } from "firebase/storage";
 import { app } from "../firebase";
 
+// eslint-disable-next-line react/prop-types
 export default function ProfileAvatar({ setFormData, formData }) {
   const { userState } = useUserCtx();
   const fileRef = useRef(null);
@@ -60,8 +61,10 @@ export default function ProfileAvatar({ setFormData, formData }) {
         <img
           onClick={() => fileRef.current && fileRef.current.click()}
           className="rounded-full h-24 w-24 object-cover cursor-pointer self-center mt-2"
+          // eslint-disable-next-line react/prop-types
           src={formData.avatar || userState.currentUser.avatar}
           onError={(e) =>
+          // eslint-disable-next-line react/prop-types
             (e.target.src = formData.avatar || autoProfilePicString)
           }
           alt="profile-picture"
@@ -70,6 +73,7 @@ export default function ProfileAvatar({ setFormData, formData }) {
         <img
           onClick={() => fileRef.current && fileRef.current.click()}
           className="rounded-full h-24 w-24 object-cover cursor-pointer self-center mt-2"
+          // eslint-disable-next-line react/prop-types
           src={formData.avatar || autoProfilePicString}
           alt="aut-profile-picture"
         />
