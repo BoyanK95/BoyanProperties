@@ -30,7 +30,7 @@ export const updateUser = async (req, res, next) => {
       { new: true }
     );
 
-    const { password, ...rest } = updateUser;
+    const { password, ...rest } = updatedUser;
     res.status(200).json(rest);
   } catch (error) {
     next(error);
