@@ -6,7 +6,6 @@ function Profile() {
   const { userState, updateStart, updateSuccess, updateFail } = useUserCtx();
   const [formData, setFormData] = useState({});
   const currentUser = userState.currentUser;
-  console.log(currentUser);
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
@@ -34,7 +33,6 @@ function Profile() {
     }
   };
 
-  // console.log("formData", formData);
   return (
     <div className="p-3 max-w-lg mx-auto">
       <h1 className="text-3xl font-semibold text-center my-7">Profile</h1>
