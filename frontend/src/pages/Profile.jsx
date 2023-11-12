@@ -3,21 +3,38 @@ import ProfileAvatar from "../components/ProfileAvatar";
 import { useUserCtx } from "../context/userCtx";
 
 function Profile() {
-  const { userState } = useUserCtx();
+  const { userState, updateStart, updateSuccess, updateFail } = useUserCtx();
   const [formData, setFormData] = useState({});
   const currentUser = userState.currentUser;
-
+  console.log(currentUser);
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
-    e.target.preventDefault();
-    //TODO formSubmit
-    console.log(e);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      updateStart();
+      const res = await fetch(`/api/user/update/${currentUser._id}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+      if (data.success === false) {
+        updateFail(data.message);
+        return;
+      }
+      updateSuccess(data)
+    } catch (error) {
+      updateFail(error.message);
+    }
   };
 
-  console.log("formData", formData);
+  // console.log("formData", formData);
   return (
     <div className="p-3 max-w-lg mx-auto">
       <h1 className="text-3xl font-semibold text-center my-7">Profile</h1>

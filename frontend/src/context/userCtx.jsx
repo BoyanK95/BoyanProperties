@@ -32,9 +32,35 @@ export const UserProvider = ({ children }) => {
     setUserState((prevState) => ({ ...prevState, error, loading: false }));
   };
 
+  const updateStart = () => {
+    setUserState((prevState) => {
+      return { ...prevState, loading: true };
+    });
+  };
+
+  const updateSuccess = (user) => {
+    setUserState({
+      currentUser: user,
+      error: null,
+      loading: false,
+    });
+  };
+
+  const updateFail = (error) => {
+    setUserState((prevState) => ({ ...prevState, error, loading: false }));
+  };
+
   return (
     <UserCtx.Provider
-      value={{ userState, signInStart, signInSuccess, signInFail }}
+      value={{
+        userState,
+        signInStart,
+        signInSuccess,
+        signInFail,
+        updateStart,
+        updateSuccess,
+        updateFail,
+      }}
     >
       {children}
     </UserCtx.Provider>
