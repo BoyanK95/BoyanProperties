@@ -21,6 +21,7 @@ export default function ProfileAvatar({ setFormData, formData }) {
     if (file) {
       handleFileUpload(file);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [file]);
 
   const handleFileUpload = (file) => {

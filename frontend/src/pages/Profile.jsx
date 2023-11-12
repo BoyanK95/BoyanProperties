@@ -1,8 +1,15 @@
 import { useState } from "react";
 import ProfileAvatar from "../components/ProfileAvatar";
+import { useUserCtx } from "../context/userCtx";
 
 function Profile() {
+  const { userState } = useUserCtx();
   const [formData, setFormData] = useState({});
+  const currentUser = userState.currentUser;
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value });
+  };
 
   const handleSubmit = (e) => {
     e.target.preventDefault();
@@ -17,21 +24,23 @@ function Profile() {
       <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
         <ProfileAvatar setFormData={setFormData} formData={formData} />
         <input
-          onChange={(e) => e.target.value}
+          onChange={handleChange}
           type="text"
           id="username"
           placeholder="username"
+          defaultValue={currentUser.username}
           className="border p-3 rounded-lg m-3"
         />
         <input
-          onChange={(e) => e.target.value}
+          onChange={handleChange}
           type="email"
           id="email"
           placeholder="email"
+          defaultValue={currentUser.email}
           className="border p-3 rounded-lg m-3"
         />
         <input
-          onChange={(e) => e.target.value}
+          onChange={handleChange}
           type="password"
           id="password"
           placeholder="password"
