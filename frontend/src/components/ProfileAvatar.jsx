@@ -63,7 +63,7 @@ export default function ProfileAvatar({ setFormData, formData }) {
           onClick={() => fileRef.current && fileRef.current.click()}
           className="rounded-full h-24 w-24 object-cover cursor-pointer self-center mt-2"
           // eslint-disable-next-line react/prop-types
-          src={formData.avatar || userState.currentUser.avatar}
+          src={formData.avatar || userState.currentUser.avatar || userState.currentUser._doc.avatar}
           onError={(e) =>
           // eslint-disable-next-line react/prop-types
             (e.target.src = formData.avatar || autoProfilePicString)

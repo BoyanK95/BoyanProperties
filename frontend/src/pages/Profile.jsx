@@ -14,7 +14,7 @@ function Profile() {
     e.preventDefault();
     try {
       updateStart();
-      const res = await fetch(`/api/user/update/${currentUser._id}`, {
+      const res = await fetch(`/api/user/update/${currentUser._id || currentUser._doc._id}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -44,7 +44,7 @@ function Profile() {
           type="text"
           id="username"
           placeholder="username"
-          defaultValue={currentUser.username}
+          defaultValue={currentUser.username || currentUser._doc.username}
           className="border p-3 rounded-lg m-3"
         />
         <input
@@ -52,7 +52,7 @@ function Profile() {
           type="email"
           id="email"
           placeholder="email"
-          defaultValue={currentUser.email}
+          defaultValue={currentUser.email || currentUser._doc.email}
           className="border p-3 rounded-lg m-3"
         />
         <input
