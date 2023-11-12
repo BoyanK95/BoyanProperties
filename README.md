@@ -4,7 +4,7 @@
 
 Welcome to BoyanProperties, a full-stack web application designed to create a comprehensive Real Estate Marketplace. This project is built using the MERN stack, which includes MongoDB for the database, Express.js for the backend API, React for the frontend user interface, and Node.js for server-side logic.
 
-## Project Overview
+🔥 ## Project Overview
 
 BoyanProperties aims to provide a platform for showcasing real estate properties and their associated details. At its core, the project will feature the following components:
 
@@ -12,7 +12,7 @@ BoyanProperties aims to provide a platform for showcasing real estate properties
 
 - **Account Authentication:** User authentication will be a key feature, allowing users to create accounts, log in, and manage their own property listings. This will provide a personalized experience and ensure data security.
 
-- **What we will be building:**
+:wrench: - **What we will be building:**
 
      **Advanced Authentication:** Implement JWT, Firebase, and Google OAuth for secure and seamless user access.
      **Real-world CRUD Operations:** Create, read, update, and delete property listings using MongoDB.
@@ -20,7 +20,7 @@ BoyanProperties aims to provide a platform for showcasing real estate properties
      **Advanced Search Functionality:** Implement cutting-edge search features to help users find what they're looking for.
      **Deployment Made Easy:** Learn to deploy your MERN real estate app for free using the 'render' platform.
 
-🔥 **Prerequisites:**
+ **Prerequisites:**
 
 A basic understanding of JavaScript and React is recommended, but if you're eager to dive into full-stack development and excited about building a real estate marketplace, you're more than ready to get started.
 
