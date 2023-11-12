@@ -4,8 +4,10 @@ import { useUserCtx } from "../context/userCtx";
 
 function Profile() {
   const { userState, updateStart, updateSuccess, updateFail } = useUserCtx();
-  const [formData, setFormData] = useState({});
   const currentUser = userState.currentUser;
+  const [formData, setFormData] = useState({});
+  const [updatedSuccessfully, setUpdatedSuccessfully] = useState(false)
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
@@ -28,11 +30,11 @@ function Profile() {
         return;
       }
       updateSuccess(data);
+      setUpdatedSuccessfully(true)
     } catch (error) {
       updateFail(error.message);
     }
   };
-  console.log(userState);
 
   return (
     <div className="p-3 max-w-lg mx-auto">
@@ -77,6 +79,8 @@ function Profile() {
           Sign out
         </span>
       </div>
+      <p className="text-red-700 mt-5">{userState.error ?  userState.error : ''}</p>
+      <p className="text-green-700 mt-5">{updatedSuccessfully ? 'User updated succesfully!' : ''}</p>
     </div>
   );
 }
