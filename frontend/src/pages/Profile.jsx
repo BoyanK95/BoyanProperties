@@ -1,44 +1,74 @@
 import { useState } from "react";
 import ProfileAvatar from "../components/ProfileAvatar";
+import { useUserCtx } from "../context/userCtx";
 
 function Profile() {
+  const { userState, updateStart, updateSuccess, updateFail } = useUserCtx();
+  const currentUser = userState.currentUser;
   const [formData, setFormData] = useState({});
+  const [updatedSuccessfully, setUpdatedSuccessfully] = useState(false)
 
-  const handleSubmit = (e) => {
-    e.target.preventDefault();
-    //TODO formSubmit
-    console.log(e);
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
-  console.log("formData", formData);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      updateStart();
+      const res = await fetch(`/api/user/update/${currentUser._id || currentUser._doc._id}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+      if (data.success === false) {
+        updateFail(data.message);
+        return;
+      }
+      updateSuccess(data);
+      setUpdatedSuccessfully(true)
+    } catch (error) {
+      updateFail(error.message);
+    }
+  };
+
   return (
     <div className="p-3 max-w-lg mx-auto">
       <h1 className="text-3xl font-semibold text-center my-7">Profile</h1>
       <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
         <ProfileAvatar setFormData={setFormData} formData={formData} />
         <input
-          onChange={(e) => e.target.value}
+          onChange={handleChange}
           type="text"
           id="username"
           placeholder="username"
+          defaultValue={currentUser.username || currentUser._doc.username}
           className="border p-3 rounded-lg m-3"
         />
         <input
-          onChange={(e) => e.target.value}
+          onChange={handleChange}
           type="email"
           id="email"
           placeholder="email"
+          defaultValue={currentUser.email || currentUser._doc.email}
           className="border p-3 rounded-lg m-3"
         />
         <input
-          onChange={(e) => e.target.value}
+          onChange={handleChange}
           type="password"
           id="password"
           placeholder="password"
           className="border p-3 rounded-lg m-3"
         />
-        <button className="bg-slate-700 text-white rounded-lg p-3 uppercase disabled:opacity-70 hover:opacity-90">
-          Update
+        <button
+          className="bg-slate-700 text-white rounded-lg p-3 uppercase disabled:opacity-70 hover:opacity-90"
+          disabled={userState.loading}
+        >
+          {userState.loading ? "Loading" : "Update"}
         </button>
       </form>
       <div className="flex justify-between mt-5">
@@ -49,6 +79,8 @@ function Profile() {
           Sign out
         </span>
       </div>
+      <p className="text-red-700 mt-5">{userState.error ?  userState.error : ''}</p>
+      <p className="text-green-700 mt-5">{updatedSuccessfully ? 'User updated succesfully!' : ''}</p>
     </div>
   );
 }
