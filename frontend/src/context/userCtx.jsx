@@ -50,6 +50,24 @@ export const UserProvider = ({ children }) => {
     setUserState((prevState) => ({ ...prevState, error, loading: false }));
   };
 
+  const deleteUserStart = () => {
+    setUserState((prevState) => {
+      return { ...prevState, loading: true };
+    });
+  };
+
+  const deleteUserSuccess = () => {
+    setUserState({
+      currentUser: null,
+      error: null,
+      loading: false,
+    });
+  };
+
+  const deleteUserFail = (error) => {
+    setUserState((prevState) => ({ ...prevState, error, loading: false }));
+  };
+
   return (
     <UserCtx.Provider
       value={{
@@ -60,6 +78,9 @@ export const UserProvider = ({ children }) => {
         updateStart,
         updateSuccess,
         updateFail,
+        deleteUserStart,
+        deleteUserSuccess,
+        deleteUserFail,
       }}
     >
       {children}
