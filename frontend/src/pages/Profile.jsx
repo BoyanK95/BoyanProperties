@@ -27,11 +27,12 @@ function Profile() {
         updateFail(data.message);
         return;
       }
-      updateSuccess(data)
+      updateSuccess(data);
     } catch (error) {
       updateFail(error.message);
     }
   };
+  console.log(userState);
 
   return (
     <div className="p-3 max-w-lg mx-auto">
@@ -61,8 +62,11 @@ function Profile() {
           placeholder="password"
           className="border p-3 rounded-lg m-3"
         />
-        <button className="bg-slate-700 text-white rounded-lg p-3 uppercase disabled:opacity-70 hover:opacity-90">
-          Update
+        <button
+          className="bg-slate-700 text-white rounded-lg p-3 uppercase disabled:opacity-70 hover:opacity-90"
+          disabled={userState.loading}
+        >
+          {userState.loading ? "Loading" : "Update"}
         </button>
       </form>
       <div className="flex justify-between mt-5">
