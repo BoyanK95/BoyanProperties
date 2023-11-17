@@ -12,7 +12,7 @@ BoyanProperties aims to provide a platform for showcasing real estate properties
 
 - **Account Authentication:** User authentication will be a key feature, allowing users to create accounts, log in, and manage their own property listings. This will provide a personalized experience and ensure data security.
 
-:wrench: - **What we will be building:**
+- **What we will be building:** :wrench: 
 
      **Advanced Authentication:** Implement JWT, Firebase, and Google OAuth for secure and seamless user access.
      **Real-world CRUD Operations:** Create, read, update, and delete property listings using MongoDB.
