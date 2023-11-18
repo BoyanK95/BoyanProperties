@@ -128,9 +128,13 @@ function CreateListings() {
               accept="image/*"
               multiple
             />
-            <button className="p-3 text-green-700 border border-green-700 rounded-xl uppercase hover:shadow-lg disabled:opacity-70">Upload</button>
+            <button className="p-3 text-green-700 border border-green-700 rounded-xl uppercase hover:shadow-lg hover:bg-green-700 hover:text-white disabled:opacity-70">
+              Upload
+            </button>
           </div>
-        <button className="p-3 bg-slate-700 text-white rounded-lg hover:opacity-95 disabled:opacity-70">Create Listing</button>
+          <button className="p-3 bg-slate-700 text-white rounded-lg hover:opacity-95 disabled:opacity-70">
+            Create Listing
+          </button>
         </div>
       </form>
     </main>
