@@ -40,7 +40,7 @@ function CreateListings() {
           setImageUploadError(error);
         });
     } else {
-      setImageUploadError('You can only upload 6 images per listing!')
+      setImageUploadError("You can only upload 6 images per listing!");
     }
   };
 
@@ -210,13 +210,31 @@ function CreateListings() {
                 Upload
               </button>
             </div>
-            {fileUploadPercent > 0 && fileUploadPercent < 100 && (
-              <p className="text-green-700 text-sm">{`Uploading ${fileUploadPercent}% done`}</p>
-            )}
-            <p className="text-red-700">
-              {imageUploadError && imageUploadError}
-            </p>
+            <div>
+              {fileUploadPercent > 0 && fileUploadPercent < 100 && (
+                <p className="text-green-700 text-sm">{`Uploading ${fileUploadPercent}% done`}</p>
+              )}
+              <p className="text-red-700">
+                {imageUploadError && imageUploadError}
+              </p>
+            </div>
           </div>
+          {formData.imageUrls.length > 0 &&
+            formData.imageUrls.map((url, idx) => (
+              <div className="flex justify-between p-3" key={idx}>
+                <img
+                  src={url}
+                  alt="apartment-image"
+                  className="w-40 h-40 object-cover rounded-lg"
+                />
+                <button
+                  type="button"
+                  className="text-red-700 border p-5 border-spacing-6 border-red-600 font-bold uppercase rounded-lg hover:opacity-80 hover:bg-red-700 hover:text-white"
+                >
+                  Delete
+                </button>
+              </div>
+            ))}
           <button
             type="submit"
             className="p-3 bg-slate-700 text-white rounded-lg hover:opacity-95 disabled:opacity-70"
