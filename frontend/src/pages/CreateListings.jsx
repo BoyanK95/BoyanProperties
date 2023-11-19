@@ -16,7 +16,7 @@ function CreateListings() {
 
   console.log("files", files);
   console.log("fileUploadPercent", fileUploadPercent);
-  console.log('formData', formData);
+  console.log("formData", formData);
 
   const handleImageSubmit = () => {
     if (files.length > 0 && files.length < 7) {
@@ -24,7 +24,7 @@ function CreateListings() {
 
       for (let i = 0; i < files.length; i++) {
         const element = files[i];
-        promises.push(storeImage(element))
+        promises.push(storeImage(element));
       }
 
       Promise.all(promises).then((url) => {
@@ -180,23 +180,28 @@ function CreateListings() {
           <span className="font-normal text-gray-600 ml-3">
             The first image will be the cover (max 6)
           </span>
-          <div className="flex gap-4">
-            <input
-              className="p-3 border border-gray-300 rounded w-full"
-              onChange={(e) => setFiles(e.target.files)}
-              type="file"
-              name="images"
-              id="images"
-              accept="image/*"
-              multiple
-            />
-            <button
-              type="button"
-              onClick={handleImageSubmit}
-              className="p-3 text-green-700 border border-green-700 rounded-xl uppercase hover:shadow-lg hover:bg-green-700 hover:text-white disabled:opacity-70"
-            >
-              Upload
-            </button>
+          <div>
+            <div className="flex gap-4">
+              <input
+                className="p-3 border border-gray-300 rounded w-full"
+                onChange={(e) => setFiles(e.target.files)}
+                type="file"
+                name="images"
+                id="images"
+                accept="image/*"
+                multiple
+              />
+              <button
+                type="button"
+                onClick={handleImageSubmit}
+                className="p-3 text-green-700 border border-green-700 rounded-xl uppercase hover:shadow-lg hover:bg-green-700 hover:text-white disabled:opacity-70"
+              >
+                Upload
+              </button>
+            </div>
+            {fileUploadPercent && (
+              <p className="text-green-700 p-2">{`Upload ${fileUploadPercent}% done`}</p>
+            )}
           </div>
           <button
             type="submit"
