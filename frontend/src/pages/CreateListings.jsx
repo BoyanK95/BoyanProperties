@@ -13,6 +13,7 @@ function CreateListings() {
     imageUrls: [],
   });
   const [fileUploadPercent, setFileUploadPercent] = useState(0);
+  const [imageUploadError, setImageUploadError] = useState("");
 
   console.log("files", files);
   console.log("fileUploadPercent", fileUploadPercent);
@@ -27,9 +28,19 @@ function CreateListings() {
         promises.push(storeImage(element));
       }
 
-      Promise.all(promises).then((url) => {
-        setFormData({ ...formData, imageUrls: formData.imageUrls.concat(url) });
-      });
+      Promise.all(promises)
+        .then((url) => {
+          setFormData({
+            ...formData,
+            imageUrls: formData.imageUrls.concat(url),
+          });
+          setImageUploadError(false);
+        })
+        .catch((error) => {
+          setImageUploadError(error);
+        });
+    } else {
+      setImageUploadError('You can only upload 6 images per listing!')
     }
   };
 
@@ -199,9 +210,12 @@ function CreateListings() {
                 Upload
               </button>
             </div>
-            {fileUploadPercent && (
-              <p className="text-green-700 p-2">{`Upload ${fileUploadPercent}% done`}</p>
+            {fileUploadPercent > 0 && fileUploadPercent < 100 && (
+              <p className="text-green-700 text-sm">{`Uploading ${fileUploadPercent}% done`}</p>
             )}
+            <p className="text-red-700">
+              {imageUploadError && imageUploadError}
+            </p>
           </div>
           <button
             type="submit"
