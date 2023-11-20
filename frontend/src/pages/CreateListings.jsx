@@ -242,7 +242,7 @@ function CreateListings() {
                 <img
                   src={url}
                   alt="apartment-image"
-                  className="w-40 h-40 object-cover rounded-lg"
+                  className="w-20 h-20 object-cover rounded-lg"
                 />
                 <button
                   onClick={() => deleteUploadedImage(url)}
