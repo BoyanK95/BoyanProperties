@@ -13,6 +13,7 @@ function CreateListings() {
     imageUrls: [],
   });
   const [fileUploadPercent, setFileUploadPercent] = useState(0);
+  const [isUploading, setIsUploading] = useState(false);
   const [imageUploadError, setImageUploadError] = useState("");
 
   console.log("files", files);
@@ -21,6 +22,8 @@ function CreateListings() {
 
   const handleImageSubmit = () => {
     if (files.length > 0 && files.length < 7) {
+      setIsUploading(true);
+
       const promises = [];
 
       for (let i = 0; i < files.length; i++) {
@@ -35,12 +38,15 @@ function CreateListings() {
             imageUrls: formData.imageUrls.concat(url),
           });
           setImageUploadError(false);
+          setIsUploading(false);
         })
         .catch((error) => {
           setImageUploadError(error);
+          setIsUploading(false);
         });
     } else {
       setImageUploadError("You can only upload 6 images per listing!");
+      setIsUploading(false);
     }
   };
 
@@ -212,9 +218,10 @@ function CreateListings() {
               <button
                 type="button"
                 onClick={handleImageSubmit}
+                disabled={isUploading}
                 className="p-3 text-green-700 border border-green-700 rounded-xl uppercase hover:shadow-lg hover:bg-green-700 hover:text-white disabled:opacity-70"
               >
-                Upload
+                {isUploading ? "Uploading..." : "Upload"}
               </button>
             </div>
             <div>
