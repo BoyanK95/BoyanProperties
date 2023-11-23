@@ -6,8 +6,10 @@ import {
 } from "firebase/storage";
 import { useState } from "react";
 import { app } from "../firebase";
+import { useUserCtx } from "../context/userCtx";
 
 function CreateListings() {
+  const {userState} = useUserCtx()
   const [files, setFiles] = useState([]);
   const [formData, setFormData] = useState({
     imageUrls: [],
@@ -17,12 +19,14 @@ function CreateListings() {
     type: "rent",
     bedrooms: 1,
     bathrooms: 1,
-    regularPrice: 0,
-    discountedPrice: 0,
+    regularPrice: 50,
+    discountedPrice: 1,
     offer: false,
     parking: false,
     furnished: false,
   });
+  const [formError, setFormError] = useState("");
+  const [isFormLoading, setIsFormLoading] = useState(false);
   const [fileUploadPercent, setFileUploadPercent] = useState(0);
   const [isUploading, setIsUploading] = useState(false);
   const [imageUploadError, setImageUploadError] = useState("");
@@ -95,6 +99,34 @@ function CreateListings() {
     });
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      setIsFormLoading(true);
+      setFormError("");
+      const res = await fetch("/api/listing/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...formData,
+          userRef: userState.currentUser._id
+        }),
+      });
+      const data = await res.json();
+
+      if (data.success === false) {
+        setIsFormLoading(false)
+        setFormError(data.message);
+      }
+    } catch (error) {
+      setIsFormLoading(false);
+      setFormError(error);
+    }
+  };
+
   const handleChange = (e) => {
     if (e.target.id === "rent" || e.target.id === "sale") {
       setFormData({
@@ -102,17 +134,25 @@ function CreateListings() {
         type: e.target.id,
       });
     }
-    if (e.target.id === 'parking' || e.target.id === 'furnished' || e.target.id === 'offer' ) {
+    if (
+      e.target.id === "parking" ||
+      e.target.id === "furnished" ||
+      e.target.id === "offer"
+    ) {
       setFormData({
         ...formData,
-        [e.target.id]: e.target.checked
-      })
+        [e.target.id]: e.target.checked,
+      });
     }
-    if (e.target.type === 'number' || e.target.type === 'text' || e.target.type === 'textarea') {
+    if (
+      e.target.type === "number" ||
+      e.target.type === "text" ||
+      e.target.type === "textarea"
+    ) {
       setFormData({
         ...formData,
-        [e.target.id]: e.target.value
-      })
+        [e.target.id]: e.target.value,
+      });
     }
   };
 
@@ -121,7 +161,7 @@ function CreateListings() {
       <h1 className="text-3xl font-semibold text-center my-7">
         Create a Listing
       </h1>
-      <form className="flex flex-col sm:flex-row gap-4">
+      <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4">
         <div className="flex flex-col gap-4 flex-1">
           <input
             onChange={handleChange}
@@ -130,7 +170,7 @@ function CreateListings() {
             type="text"
             id="name"
             placeholder="Name"
-            minLength="10"
+            minLength="4"
             maxLength="62"
             required
           />
@@ -305,8 +345,8 @@ function CreateListings() {
               </p>
             </div>
           </div>
-          {formData.imageUrls.length > 0 &&
-            formData.imageUrls.map((url, idx) => (
+          {formData.imageUrls?.length > 0 &&
+            formData.imageUrls?.map((url, idx) => (
               <div
                 className="flex justify-between p-3 hover:shadow-md rounded-lg"
                 key={idx}
@@ -329,8 +369,9 @@ function CreateListings() {
             type="submit"
             className="p-3 bg-slate-700 text-white rounded-lg hover:opacity-95 disabled:opacity-70"
           >
-            Create Listing
+            {isFormLoading ? "Loading..." : "Create Listing"}
           </button>
+          {formError && <p className="text-red-700 text-sm">{formError}</p>}
         </div>
       </form>
     </main>
