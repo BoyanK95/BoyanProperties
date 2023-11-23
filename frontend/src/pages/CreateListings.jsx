@@ -11,13 +11,24 @@ function CreateListings() {
   const [files, setFiles] = useState([]);
   const [formData, setFormData] = useState({
     imageUrls: [],
+    name: "",
+    description: "",
+    address: "",
+    type: "rent",
+    bedrooms: 1,
+    bathrooms: 1,
+    regularPrice: 0,
+    discountedPrice: 0,
+    offer: false,
+    parking: false,
+    furnished: false,
   });
   const [fileUploadPercent, setFileUploadPercent] = useState(0);
   const [isUploading, setIsUploading] = useState(false);
   const [imageUploadError, setImageUploadError] = useState("");
 
-  console.log("files", files);
-  console.log("fileUploadPercent", fileUploadPercent);
+  // console.log("files", files);
+  // console.log("fileUploadPercent", fileUploadPercent);
   console.log("formData", formData);
 
   const handleImageSubmit = () => {
@@ -84,6 +95,27 @@ function CreateListings() {
     });
   };
 
+  const handleChange = (e) => {
+    if (e.target.id === "rent" || e.target.id === "sale") {
+      setFormData({
+        ...formData,
+        type: e.target.id,
+      });
+    }
+    if (e.target.id === 'parking' || e.target.id === 'furnished' || e.target.id === 'offer' ) {
+      setFormData({
+        ...formData,
+        [e.target.id]: e.target.checked
+      })
+    }
+    if (e.target.type === 'number' || e.target.type === 'text' || e.target.type === 'textarea') {
+      setFormData({
+        ...formData,
+        [e.target.id]: e.target.value
+      })
+    }
+  };
+
   return (
     <main className="p-3 max-w-4xl mx-auto">
       <h1 className="text-3xl font-semibold text-center my-7">
@@ -92,6 +124,8 @@ function CreateListings() {
       <form className="flex flex-col sm:flex-row gap-4">
         <div className="flex flex-col gap-4 flex-1">
           <input
+            onChange={handleChange}
+            value={formData.name}
             className="border p-3 rounded-lg"
             type="text"
             id="name"
@@ -101,6 +135,8 @@ function CreateListings() {
             required
           />
           <textarea
+            onChange={handleChange}
+            value={formData.description}
             className="border p-3 rounded-lg"
             type="text"
             id="description"
@@ -110,6 +146,8 @@ function CreateListings() {
             required
           />
           <input
+            onChange={handleChange}
+            value={formData.address}
             className="border p-3 rounded-lg"
             type="text"
             id="address"
@@ -118,15 +156,31 @@ function CreateListings() {
           />
           <div className="flex gap-6 flex-wrap">
             <div className="flex gap-2">
-              <input type="checkbox" name="sale" id="sale" className="w-5" />
+              <input
+                onChange={handleChange}
+                checked={formData.type === "sale"}
+                type="checkbox"
+                name="sale"
+                id="sale"
+                className="w-5"
+              />
               <span>Sell</span>
             </div>
             <div className="flex gap-2">
-              <input type="checkbox" name="rent" id="rent" className="w-5" />
+              <input
+                onChange={handleChange}
+                checked={formData.type === "rent"}
+                type="checkbox"
+                name="rent"
+                id="rent"
+                className="w-5"
+              />
               <span>Rent</span>
             </div>
             <div className="flex gap-2">
               <input
+                onChange={handleChange}
+                checked={formData.parking === true}
                 type="checkbox"
                 name="parking"
                 id="parking"
@@ -136,6 +190,8 @@ function CreateListings() {
             </div>
             <div className="flex gap-2">
               <input
+                onChange={handleChange}
+                checked={formData.furnished}
                 type="checkbox"
                 name="furnished"
                 id="furnished"
@@ -144,13 +200,22 @@ function CreateListings() {
               <span>Furnished</span>
             </div>
             <div className="flex gap-2">
-              <input type="checkbox" name="offer" id="offer" className="w-5" />
+              <input
+                onChange={handleChange}
+                checked={formData.offer}
+                type="checkbox"
+                name="offer"
+                id="offer"
+                className="w-5"
+              />
               <span>Offer</span>
             </div>
           </div>
           <div className="flex flex-wrap gap-7">
             <div className="flex items-center gap-2">
               <input
+                onChange={handleChange}
+                value={formData.bedrooms}
                 className="p-3 border-gray-300 rounded-lg"
                 type="number"
                 id="bedrooms"
@@ -162,6 +227,8 @@ function CreateListings() {
             </div>
             <div className="flex items-center gap-2">
               <input
+                onChange={handleChange}
+                value={formData.bathrooms}
                 className="p-3 border-gray-300 rounded-lg"
                 type="number"
                 id="bathrooms"
@@ -173,6 +240,8 @@ function CreateListings() {
             </div>
             <div className="flex items-center gap-2">
               <input
+                onChange={handleChange}
+                value={formData.regularPrice}
                 className="p-3 border-gray-300 rounded-lg"
                 type="number"
                 id="regularPrice"
@@ -186,6 +255,8 @@ function CreateListings() {
             </div>
             <div className="flex items-center gap-2">
               <input
+                onChange={handleChange}
+                value={formData.discountedPrice}
                 className="p-3 border-gray-300 rounded-lg"
                 type="number"
                 id="discountedPrice"
@@ -199,6 +270,7 @@ function CreateListings() {
             </div>
           </div>
         </div>
+        {/* Upload IMG SECTION */}
         <div className="flex flex-col gap-4 flex-1">
           <p className="font-semibold">Images:</p>
           <span className="font-normal text-gray-600 ml-3">
