@@ -31,10 +31,6 @@ function CreateListings() {
   const [isUploading, setIsUploading] = useState(false);
   const [imageUploadError, setImageUploadError] = useState("");
 
-  // console.log("files", files);
-  // console.log("fileUploadPercent", fileUploadPercent);
-  console.log("formData", formData);
-
   const handleImageSubmit = () => {
     if (files.length > 0 && files.length < 7) {
       setIsUploading(true);
