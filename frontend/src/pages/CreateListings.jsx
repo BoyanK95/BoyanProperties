@@ -20,7 +20,7 @@ function CreateListings() {
     bedrooms: 1,
     bathrooms: 1,
     regularPrice: 50,
-    discountPrice: 1,
+    discountPrice: 0,
     offer: false,
     parking: false,
     furnished: false,
@@ -219,7 +219,7 @@ function CreateListings() {
             <div className="flex gap-2">
               <input
                 onChange={handleChange}
-                checked={formData.parking === true}
+                checked={formData.parking}
                 type="checkbox"
                 name="parking"
                 id="parking"
@@ -292,7 +292,7 @@ function CreateListings() {
                 <span className="text-xs">($ / month)</span>
               </div>
             </div>
-            <div className="flex items-center gap-2">
+            {formData.offer && <div className="flex items-center gap-2">
               <input
                 onChange={handleChange}
                 value={formData.discountedPrice}
@@ -306,7 +306,7 @@ function CreateListings() {
                 <p>Discounted price</p>
                 <span className="text-xs">($ / month)</span>
               </div>
-            </div>
+            </div>}
           </div>
         </div>
         {/* Upload IMG SECTION */}
