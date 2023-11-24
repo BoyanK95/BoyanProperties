@@ -292,21 +292,23 @@ function CreateListings() {
                 <span className="text-xs">($ / month)</span>
               </div>
             </div>
-            {formData.offer && <div className="flex items-center gap-2">
-              <input
-                onChange={handleChange}
-                value={formData.discountedPrice}
-                className="p-3 border-gray-300 rounded-lg"
-                type="number"
-                id="discountPrice"
-                min="0"
-                required
-              />
-              <div className="flex flex-col items-center">
-                <p>Discounted price</p>
-                <span className="text-xs">($ / month)</span>
+            {formData.offer && (
+              <div className="flex items-center gap-2">
+                <input
+                  onChange={handleChange}
+                  value={formData.discountedPrice}
+                  className="p-3 border-gray-300 rounded-lg"
+                  type="number"
+                  id="discountPrice"
+                  min="0"
+                  required
+                />
+                <div className="flex flex-col items-center">
+                  <p>Discounted price</p>
+                  <span className="text-xs">($ / month)</span>
+                </div>
               </div>
-            </div>}
+            )}
           </div>
         </div>
         {/* Upload IMG SECTION */}
@@ -365,6 +367,7 @@ function CreateListings() {
               </div>
             ))}
           <button
+            disabled={isFormLoading || isUploading}
             type="submit"
             className="p-3 bg-slate-700 text-white rounded-lg hover:opacity-95 disabled:opacity-70"
           >
