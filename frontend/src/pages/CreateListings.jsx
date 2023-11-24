@@ -9,7 +9,7 @@ import { app } from "../firebase";
 import { useUserCtx } from "../context/userCtx";
 
 function CreateListings() {
-  const {userState} = useUserCtx()
+  const { userState } = useUserCtx();
   const [files, setFiles] = useState([]);
   const [formData, setFormData] = useState({
     imageUrls: [],
@@ -20,7 +20,7 @@ function CreateListings() {
     bedrooms: 1,
     bathrooms: 1,
     regularPrice: 50,
-    discountedPrice: 1,
+    discountPrice: 1,
     offer: false,
     parking: false,
     furnished: false,
@@ -103,8 +103,12 @@ function CreateListings() {
     e.preventDefault();
 
     try {
+      if (formData.imageUrls.length < 1)
+        return setFormError("You must upload at least one image");
+      if (+formData.regularPrice < +formData.discountPrice)
+        return setFormError("Discount price must be lower than regular price");
       setIsFormLoading(true);
-      setFormError("");
+      setFormError(false);
       const res = await fetch("/api/listing/create", {
         method: "POST",
         headers: {
@@ -112,18 +116,17 @@ function CreateListings() {
         },
         body: JSON.stringify({
           ...formData,
-          userRef: userState.currentUser._id
+          userRef: userState.currentUser._id,
         }),
       });
       const data = await res.json();
-
+      setIsFormLoading(false);
       if (data.success === false) {
-        setIsFormLoading(false)
         setFormError(data.message);
       }
     } catch (error) {
+      setFormError(error.message);
       setIsFormLoading(false);
-      setFormError(error);
     }
   };
 
@@ -299,7 +302,7 @@ function CreateListings() {
                 value={formData.discountedPrice}
                 className="p-3 border-gray-300 rounded-lg"
                 type="number"
-                id="discountedPrice"
+                id="discountPrice"
                 min="1"
                 required
               />
