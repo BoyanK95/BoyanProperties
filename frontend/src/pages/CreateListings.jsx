@@ -7,6 +7,7 @@ import {
 import { useState } from "react";
 import { app } from "../firebase";
 import { useUserCtx } from "../context/userCtx";
+import { useNavigate } from "react-router-dom";
 
 function CreateListings() {
   const { userState } = useUserCtx();
@@ -30,6 +31,8 @@ function CreateListings() {
   const [fileUploadPercent, setFileUploadPercent] = useState(0);
   const [isUploading, setIsUploading] = useState(false);
   const [imageUploadError, setImageUploadError] = useState("");
+
+  const navigate = useNavigate();
 
   const handleImageSubmit = () => {
     if (files.length > 0 && files.length < 7) {
@@ -120,6 +123,8 @@ function CreateListings() {
       if (data.success === false) {
         setFormError(data.message);
       }
+
+      navigate(`/listing/${data._id}`)
     } catch (error) {
       setFormError(error.message);
       setIsFormLoading(false);
