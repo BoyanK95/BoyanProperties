@@ -299,7 +299,7 @@ function CreateListings() {
                 className="p-3 border-gray-300 rounded-lg"
                 type="number"
                 id="discountPrice"
-                min="1"
+                min="0"
                 required
               />
               <div className="flex flex-col items-center">
