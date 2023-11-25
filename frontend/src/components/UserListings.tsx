@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const UserListings = (userListings) => {
-    
+const UserListings = ({userListings}) => {
+
   const deleteListing = (id) => {
     console.log(id);
   };
