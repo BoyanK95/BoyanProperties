@@ -2,6 +2,7 @@ import { useState } from "react";
 import ProfileAvatar from "../components/ProfileAvatar";
 import { useUserCtx } from "../context/userCtx";
 import { Link } from "react-router-dom";
+import UserListings from "../components/UserListings";
 
 function Profile() {
   const {
@@ -20,6 +21,9 @@ function Profile() {
   const currentUser = userState.currentUser;
   const [formData, setFormData] = useState({});
   const [updatedSuccessfully, setUpdatedSuccessfully] = useState(false);
+  const [showListingsError, setShowListingsError] = useState(false);
+  const [isListingsLoading, setIsListingsLoading] = useState(false);
+  const [userListings, setUserListings] = useState([]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
@@ -85,6 +89,27 @@ function Profile() {
     }
   };
 
+  const handleShowListings = async () => {
+    try {
+      setShowListingsError(false);
+      setIsListingsLoading(true);
+      const res = await fetch(`/api/user/listings/${currentUser._id}`);
+      const data = await res.json();
+
+      setIsListingsLoading(false);
+      if (data.success === false) {
+        return setShowListingsError(true);
+      }
+      setUserListings(data);
+    } catch (error) {
+      setShowListingsError(true);
+    }
+  };
+
+  const hideUserListings = () => {
+    setUserListings([]);
+  };
+
   return (
     <div className="p-3 max-w-lg mx-auto">
       <h1 className="text-3xl font-semibold text-center my-7">Profile</h1>
@@ -119,7 +144,12 @@ function Profile() {
         >
           {userState.loading ? "Loading" : "Update"}
         </button>
-        <Link className="bg-green-700 text-white uppercase p-3 rounded-lg text-center hover:opacity-95" to={'/create-listing'}>Create listing</Link>
+        <Link
+          className="bg-green-700 text-white uppercase p-3 rounded-lg text-center hover:opacity-95"
+          to={"/create-listing"}
+        >
+          Create listing
+        </Link>
       </form>
       <div className="flex justify-between mt-5">
         <span
@@ -141,6 +171,27 @@ function Profile() {
       <p className="text-green-700 mt-5">
         {updatedSuccessfully ? "User updated succesfully!" : ""}
       </p>
+      {userListings.length === 0 ? (
+        <button
+          onClick={handleShowListings}
+          className="text-green-700 w-full border rounded-lg p-2 border-green-500 hover:bg-green-600 hover:text-white hover:shadow-lg"
+        >
+          {isListingsLoading ? "Loading..." : "Show my listings"}
+        </button>
+      ) : (
+        <button
+          onClick={hideUserListings}
+          className="text-green-700 w-full border rounded-lg p-2 border-green-500 hover:bg-green-600 hover:text-white hover:shadow-lg"
+        >
+          Hide listings
+        </button>
+      )}
+      <p className="text-red-700 mt-5">
+        {showListingsError ? "Error show listings!" : ""}
+      </p>
+      {userListings && userListings.length > 0 && (
+        <UserListings userListings={userListings} />
+      )}
     </div>
   );
 }
