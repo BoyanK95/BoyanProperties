@@ -124,7 +124,7 @@ function CreateListings() {
         setFormError(data.message);
       }
 
-      navigate(`/listing/${data._id}`)
+      navigate(`/listings/${data._id}`)
     } catch (error) {
       setFormError(error.message);
       setIsFormLoading(false);
