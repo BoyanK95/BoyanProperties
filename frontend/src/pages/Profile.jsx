@@ -22,7 +22,8 @@ function Profile() {
   const [updatedSuccessfully, setUpdatedSuccessfully] = useState(false);
   const [showListingsError, setShowListingsError] = useState(false);
   const [isListingsLoading, setIsListingsLoading] = useState(false);
-  const [userListings, setUserListings] = useState([]);
+  const [showUserListings, setShowUserListings] = useState([]);
+  // const [hideUserListings, setHideUserListings] = useState([]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
@@ -99,9 +100,7 @@ function Profile() {
       if (data.success === false) {
         return setShowListingsError(true);
       }
-      setUserListings(data);
-      console.log("userListings", userListings);
-      console.log("data", data);
+      setShowUserListings(data);
     } catch (error) {
       setShowListingsError(true);
     }
@@ -185,12 +184,12 @@ function Profile() {
       <p className="text-red-700 mt-5">
         {showListingsError ? "Error show listings!" : ""}
       </p>
-      {userListings && userListings.length > 0 && (
+      {showUserListings && showUserListings.length > 0 && (
         <div className="flex flex-col gap-4">
           <h1 className="text-center mt-7 text-2xl font-semibold">
             Your Listings
           </h1>
-          {userListings.map((listing) => (
+          {showUserListings.map((listing) => (
             <div
               key={listing._id}
               className="flex justify-between p-3 m-3 border hover:shadow-md rounded-lg"
