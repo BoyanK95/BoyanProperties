@@ -22,6 +22,7 @@ function Profile() {
   const [updatedSuccessfully, setUpdatedSuccessfully] = useState(false);
   const [showListingsError, setShowListingsError] = useState(false);
   const [isListingsLoading, setIsListingsLoading] = useState(false);
+  const [userListings, setUserListings] = useState([]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
@@ -93,11 +94,14 @@ function Profile() {
       setIsListingsLoading(true);
       const res = await fetch(`/api/user/listings/${currentUser._id}`);
       const data = await res.json();
-      console.log(data);
+
       setIsListingsLoading(false);
       if (data.success === false) {
         return setShowListingsError(true);
       }
+      setUserListings(data);
+      console.log("userListings", userListings);
+      console.log("data", data);
     } catch (error) {
       setShowListingsError(true);
     }
@@ -173,6 +177,34 @@ function Profile() {
       <p className="text-red-700 mt-5">
         {showListingsError ? "Error show listings!" : ""}
       </p>
+      {userListings.map((listing, idx) => (
+        <Link key={idx} to={`/listings/${listing._id}`}>
+          <div className="flex justify-between p-3 m-3 border hover:shadow-md rounded-lg">
+            <img
+              src={listing.imageUrls[0]}
+              alt="listing-image"
+              className="w-20 h-20 object-cover rounded-lg"
+            />
+            <h3 className="font-bold">{listing.name}</h3>
+            <div className="inline-grid">
+              <button
+                //  onClick={() => deleteUploadedImage(url)}
+                type="button"
+                className="text-red-700 font-bold uppercase hover:opacity-80"
+              >
+                Delete
+              </button>
+              <button
+                //  onClick={() => deleteUploadedImage(url)}
+                type="button"
+                className="text-green-700 font-bold uppercase hover:opacity-80"
+              >
+                Edit
+              </button>
+            </div>
+          </div>
+        </Link>
+      ))}
     </div>
   );
 }
