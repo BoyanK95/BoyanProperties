@@ -1,8 +1,8 @@
 import { useState } from "react";
 import ProfileAvatar from "../components/ProfileAvatar";
 import { useUserCtx } from "../context/userCtx";
-import { Link } from "react-router-dom";
 import UserListings from "../components/UserListings";
+import CreateListingsBtn from "../components/CreateListingsBtn";
 
 function Profile() {
   const {
@@ -144,12 +144,7 @@ function Profile() {
         >
           {userState.loading ? "Loading" : "Update"}
         </button>
-        <Link
-          className="bg-green-700 text-white uppercase p-3 rounded-lg text-center hover:opacity-95"
-          to={"/create-listing"}
-        >
-          Create listing
-        </Link>
+        <CreateListingsBtn />
       </form>
       <div className="flex justify-between mt-5">
         <span
