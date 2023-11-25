@@ -85,6 +85,10 @@ function Profile() {
     }
   };
 
+  const handleShowListings = () => {
+    
+  }
+
   return (
     <div className="p-3 max-w-lg mx-auto">
       <h1 className="text-3xl font-semibold text-center my-7">Profile</h1>
@@ -119,7 +123,12 @@ function Profile() {
         >
           {userState.loading ? "Loading" : "Update"}
         </button>
-        <Link className="bg-green-700 text-white uppercase p-3 rounded-lg text-center hover:opacity-95" to={'/create-listing'}>Create listing</Link>
+        <Link
+          className="bg-green-700 text-white uppercase p-3 rounded-lg text-center hover:opacity-95"
+          to={"/create-listing"}
+        >
+          Create listing
+        </Link>
       </form>
       <div className="flex justify-between mt-5">
         <span
@@ -141,6 +150,9 @@ function Profile() {
       <p className="text-green-700 mt-5">
         {updatedSuccessfully ? "User updated succesfully!" : ""}
       </p>
+      <button onClick={handleShowListings} className="text-green-700 w-full border rounded-lg p-2 border-green-500 hover:bg-green-600 hover:text-white hover:shadow-lg">
+        Show Listings
+      </button>
     </div>
   );
 }
