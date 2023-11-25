@@ -23,8 +23,7 @@ function Profile() {
   const [updatedSuccessfully, setUpdatedSuccessfully] = useState(false);
   const [showListingsError, setShowListingsError] = useState(false);
   const [isListingsLoading, setIsListingsLoading] = useState(false);
-  const [showUserListings, setShowUserListings] = useState([]);
-  // const [hideUserListings, setHideUserListings] = useState([]);
+  const [userListings, setUserListings] = useState([]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
@@ -101,10 +100,14 @@ function Profile() {
       if (data.success === false) {
         return setShowListingsError(true);
       }
-      setShowUserListings(data);
+      setUserListings(data);
     } catch (error) {
       setShowListingsError(true);
     }
+  };
+
+  const hideUserListings = () => {
+    setUserListings([]);
   };
 
   return (
@@ -168,17 +171,26 @@ function Profile() {
       <p className="text-green-700 mt-5">
         {updatedSuccessfully ? "User updated succesfully!" : ""}
       </p>
-      <button
-        onClick={handleShowListings}
-        className="text-green-700 w-full border rounded-lg p-2 border-green-500 hover:bg-green-600 hover:text-white hover:shadow-lg"
-      >
-        {isListingsLoading ? "Loading..." : "Show my listings"}
-      </button>
+      {userListings.length === 0 ? (
+        <button
+          onClick={handleShowListings}
+          className="text-green-700 w-full border rounded-lg p-2 border-green-500 hover:bg-green-600 hover:text-white hover:shadow-lg"
+        >
+          {isListingsLoading ? "Loading..." : "Show my listings"}
+        </button>
+      ) : (
+        <button
+          onClick={hideUserListings}
+          className="text-green-700 w-full border rounded-lg p-2 border-green-500 hover:bg-green-600 hover:text-white hover:shadow-lg"
+        >
+          Hide listings
+        </button>
+      )}
       <p className="text-red-700 mt-5">
         {showListingsError ? "Error show listings!" : ""}
       </p>
-      {showUserListings && showUserListings.length > 0 && (
-        <UserListings userListings={showUserListings} />
+      {userListings && userListings.length > 0 && (
+        <UserListings userListings={userListings} />
       )}
     </div>
   );
