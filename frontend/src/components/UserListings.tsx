@@ -17,7 +17,7 @@ const UserListings = ({userListings}) => {
       {userListings.map((listing) => (
         <div
           key={listing._id}
-          className="flex justify-between p-3 m-3 border hover:shadow-md rounded-lg"
+          className="flex justify-between p-3 m-3 border hover:shadow-lg rounded-lg"
         >
           <Link to={`/listings/${listing._id}`}>
             <img
