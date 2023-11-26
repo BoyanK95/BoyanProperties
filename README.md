@@ -2,7 +2,7 @@
 
 **A MERN (MongoDB, Express, React, Node) Full Stack Real Estate Marketplace Project**
 
-Welcome to BoyanProperties, a full-stack web application designed to create a comprehensive Real Estate Marketplace. This project is built using the MERN stack, which includes MongoDB for the database, Express.js for the backend API, React for the frontend user interface, and Node.js for server-side logic.
+Welcome to BoyanProperties, a full-stack web application designed to create a comprehensive Real Estate Marketplace. This project is built using the MERN stack, which includes MongoDB for the database, Express.js for the backend API, React for the frontend user interface, and Express for server-side logic.
 
 ## Project Overview 🔥 
 
@@ -37,3 +37,24 @@ To get involved with the project or to run it locally on your machine, follow th
    ```bash
    npm install
    ```
+3. To run locally in the root folder run:
+ ```bash
+   npm run start
+   ```
+This will start the express server and connect to MongoDB,
+
+After that to run the client side (frontend), go to the fronend folder:
+ ```bash
+  cd frontend
+   ```
+And once in the frontend folder run:
+  ```bash
+  npm run dev
+   ```
+This will spin up a development server with vite on port:5173
+Open a browser and go to preview locally:
+http://localhost:5173/
+
+
+### Still in development and not deployed! 
+#### Coming soon ...
