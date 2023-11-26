@@ -1,8 +1,7 @@
-import React from "react";
+/* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
 
-const UserListings = ({userListings}) => {
-
+const UserListings = ({ userListings }) => {
   const deleteListing = (id) => {
     console.log(id);
   };
