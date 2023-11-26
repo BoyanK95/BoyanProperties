@@ -71,13 +71,15 @@ const UserListings = ({ userListings, setUserListings }) => {
           </div>
         ))
       ) : (
-        <Circles
-          stroke="black"
-          strokeOpacity={0.75}
-          fill="#A3A8A8"
-          height="80"
-          width="80"
-        />
+        <div className="flex items-center justify-center">
+          <Circles
+            stroke="#708090"
+            strokeOpacity={0.75}
+            fill="#A3A8A8"
+            height="90"
+            width="90"
+          />
+        </div>
       )}
     </div>
   );
