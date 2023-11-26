@@ -1,12 +1,25 @@
 /* eslint-disable react/prop-types */
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const UserListings = ({ userListings }) => {
-  const deleteListing = (id) => {
-    console.log(id);
+  const [deleteListingError, setDeleteListingError] = useState("");
+
+  const deleteListing = async (id) => {
+    try {
+      const res = await fetch(`/api/listing/delete/${id}`);
+      const data = await res.json()
+
+      if (data.success === false) {
+        setDeleteListingError(data.message)
+      }
+    } catch (error) {
+      setDeleteListingError(error.message);
+    }
   };
 
   const editListing = (id) => {
+    //TODO Create Edit functionality
     console.log(id);
   };
 
@@ -45,6 +58,7 @@ const UserListings = ({ userListings }) => {
             </button>
           </div>
         </div>
+          // <p>Error</p>
       ))}
     </div>
   );
