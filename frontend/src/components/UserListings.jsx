@@ -1,18 +1,21 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { Circles } from 'react-loading-icons'
 
 const UserListings = ({ userListings, setUserListings }) => {
   const [deleteListingError, setDeleteListingError] = useState("");
+  const [isLoading, setIsLoading] = useState(false)
 
   const deleteListing = async (id) => {
     try {
       setDeleteListingError("");
+      setIsLoading(true)
       const res = await fetch(`/api/listing/delete/${id}`, {
         method: "DELETE",
       });
       const data = await res.json();
-
+      setIsLoading(false)
       if (data.success === false) {
         return setDeleteListingError(data.message);
       }
@@ -38,6 +41,7 @@ const UserListings = ({ userListings, setUserListings }) => {
           key={listing._id}
           className="flex justify-between p-3 m-3 border hover:shadow-lg rounded-lg"
         >
+          <Circles stroke="black" strokeOpacity={.75} fill="#A3A8A8" height="80" width="80" />
           <Link to={`/listings/${listing._id}`}>
             <img
               src={listing.imageUrls[0]}
