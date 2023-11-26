@@ -7,11 +7,14 @@ const UserListings = ({ userListings }) => {
 
   const deleteListing = async (id) => {
     try {
-      const res = await fetch(`/api/listing/delete/${id}`);
-      const data = await res.json()
+      setDeleteListingError("");
+      const res = await fetch(`/api/listing/delete/${id}`, {
+        method: "DELETE",
+      });
+      const data = await res.json();
 
       if (data.success === false) {
-        setDeleteListingError(data.message)
+        setDeleteListingError(data.message);
       }
     } catch (error) {
       setDeleteListingError(error.message);
@@ -26,6 +29,9 @@ const UserListings = ({ userListings }) => {
   return (
     <div className="flex flex-col gap-4">
       <h1 className="text-center mt-7 text-2xl font-semibold">Your Listings</h1>
+      {deleteListingError && (
+        <p className="text-red-700 text-center mt-5">{deleteListingError}</p>
+      )}
       {userListings.map((listing) => (
         <div
           key={listing._id}
@@ -58,7 +64,6 @@ const UserListings = ({ userListings }) => {
             </button>
           </div>
         </div>
-          // <p>Error</p>
       ))}
     </div>
   );
