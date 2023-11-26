@@ -5,8 +5,6 @@ import { autoProfilePicString } from "../assets/autoProfilePic";
 
 function Header() {
   const { userState } = useUserCtx();
-  console.log("userState", userState);
-  console.log(userState?.currentUser?.avatar);
 
   return (
     <header className="bg-slate-200 shadow-md">

@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-const UserListings = ({ userListings }) => {
+const UserListings = ({ userListings, setUserListings }) => {
   const [deleteListingError, setDeleteListingError] = useState("");
 
   const deleteListing = async (id) => {
@@ -14,8 +14,9 @@ const UserListings = ({ userListings }) => {
       const data = await res.json();
 
       if (data.success === false) {
-        setDeleteListingError(data.message);
+        return setDeleteListingError(data.message);
       }
+      setUserListings(userListings.filter((listing) => listing._id !== id));
     } catch (error) {
       setDeleteListingError(error.message);
     }

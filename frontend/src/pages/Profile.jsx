@@ -185,7 +185,10 @@ function Profile() {
         {showListingsError ? "Error show listings!" : ""}
       </p>
       {userListings && userListings.length > 0 && (
-        <UserListings userListings={userListings} />
+        <UserListings
+          userListings={userListings}
+          setUserListings={setUserListings}
+        />
       )}
     </div>
   );
