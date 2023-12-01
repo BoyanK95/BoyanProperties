@@ -26,6 +26,9 @@ export const UserProvider = ({ children }) => {
       error: null,
       loading: false,
     });
+
+    localStorage.setItem("access_token", user.token);
+    return user.token;
   };
 
   const signInFail = (error) => {
@@ -80,12 +83,13 @@ export const UserProvider = ({ children }) => {
       error: null,
       loading: false,
     });
+
+    localStorage.removeItem("access_token");
   };
 
   const signOutUserFail = (error) => {
     setUserState((prevState) => ({ ...prevState, error, loading: false }));
   };
-
 
   return (
     <UserCtx.Provider
@@ -102,7 +106,7 @@ export const UserProvider = ({ children }) => {
         deleteUserFail,
         signOutUserStart,
         signOutUserSuccess,
-        signOutUserFail
+        signOutUserFail,
       }}
     >
       {children}
