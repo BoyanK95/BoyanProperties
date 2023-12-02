@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
 
 const UserCtx = createContext();
 
@@ -8,11 +8,30 @@ export const useUserCtx = () => {
 
 // eslint-disable-next-line react/prop-types
 export const UserProvider = ({ children }) => {
-  const [userState, setUserState] = useState({
-    currentUser: null,
-    error: null,
-    loading: null,
-  });
+  /** Set Initial State that we get from localeStorage */
+  const initialState = useMemo(() => {
+    try {
+      // Try to get user data from localStorage on initialization
+      const storedUser = localStorage.getItem("currentUser");
+      return storedUser
+        ? JSON.parse(storedUser)
+        : { currentUser: null, error: null, loading: null };
+    } catch (error) {
+      console.error("Error parsing localStorage:", error);
+      return {
+        currentUser: null,
+        error: "Error parsing localStorage",
+        loading: null,
+      };
+    }
+  }, []);
+
+  const [userState, setUserState] = useState(initialState);
+
+  /** Set currentUser in locale storage everytime userState changes */
+  useEffect(() => {
+    localStorage.setItem("currentUser", JSON.stringify(userState));
+  }, [userState]);
 
   const signInStart = () => {
     setUserState((prevState) => {
