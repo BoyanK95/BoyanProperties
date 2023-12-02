@@ -60,13 +60,15 @@ const UserListings = ({ userListings, setUserListings }) => {
               >
                 Delete
               </button>
-              <button
-                onClick={() => editListing(listing._id)}
-                type="button"
-                className="text-green-700 font-bold uppercase hover:opacity-80"
-              >
-                Edit
-              </button>
+              <Link to={`/update-listing/${listing._id}`}>
+                <button
+                  onClick={() => editListing(listing._id)}
+                  type="button"
+                  className="text-green-700 font-bold uppercase hover:opacity-80"
+                >
+                  Edit
+                </button>
+              </Link>
             </div>
           </div>
         ))
