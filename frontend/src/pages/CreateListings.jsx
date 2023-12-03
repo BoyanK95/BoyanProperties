@@ -1,11 +1,4 @@
-// import {
-//   getDownloadURL,
-//   getStorage,
-//   ref,
-//   uploadBytesResumable,
-// } from "firebase/storage";
 import { useState } from "react";
-// import { app } from "../firebase";
 import { useUserCtx } from "../context/userCtx";
 import { useNavigate } from "react-router-dom";
 import ImageCard from "../components/ImageCard";
@@ -13,7 +6,6 @@ import UploadImageSection from "../components/UploadImageSection";
 
 function CreateListings() {
   const { userState } = useUserCtx();
-  // const [files, setFiles] = useState([]);
   const [formData, setFormData] = useState({
     imageUrls: [],
     name: "",
@@ -30,9 +22,7 @@ function CreateListings() {
   });
   const [formError, setFormError] = useState("");
   const [isFormLoading, setIsFormLoading] = useState(false);
-  // const [fileUploadPercent, setFileUploadPercent] = useState(0);
   const [isUploading, setIsUploading] = useState(false);
-  // const [imageUploadError, setImageUploadError] = useState("");
 
   const navigate = useNavigate();
 
