@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useUserCtx } from "../context/userCtx";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ImageCard from "../components/Listings/ImageCard";
 import UploadImageSection from "../components/Listings/UploadImageSection";
 import ListingInputs from "../components/Listings/ListingInputs";
@@ -26,6 +26,13 @@ function UpdateListings() {
   const [isUploading, setIsUploading] = useState(false);
 
   const navigate = useNavigate();
+  const params = useParams();
+
+  useEffect(()=> {
+    const fetchListings = async () => {
+      //TODO fetch listing by id route
+    }
+  }, [])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -37,7 +44,7 @@ function UpdateListings() {
         return setFormError("Discount price must be lower than regular price!");
       setIsFormLoading(true);
       setFormError(false);
-      const res = await fetch("/api/listing/create", {
+      const res = await fetch(`/api/listing/update/${params.listingsID}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -86,7 +93,7 @@ function UpdateListings() {
           <button
             disabled={isFormLoading || isUploading}
             type="submit"
-            className="p-3 bg-slate-700 text-white rounded-lg hover:opacity-95 disabled:opacity-70"
+            className="p-3 bg-slate-700 text-white uppercase rounded-lg hover:opacity-95 disabled:opacity-70"
           >
             {isFormLoading ? "Loading..." : "Update Listing"}
           </button>

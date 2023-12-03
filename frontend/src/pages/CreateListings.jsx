@@ -86,7 +86,7 @@ function CreateListings() {
           <button
             disabled={isFormLoading || isUploading}
             type="submit"
-            className="p-3 bg-slate-700 text-white rounded-lg hover:opacity-95 disabled:opacity-70"
+            className="p-3 bg-slate-700 text-white uppercase rounded-lg hover:opacity-95 disabled:opacity-70"
           >
             {isFormLoading ? "Loading..." : "Create Listing"}
           </button>
