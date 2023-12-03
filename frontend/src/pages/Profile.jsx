@@ -1,7 +1,7 @@
 import { useState } from "react";
 import ProfileAvatar from "../components/ProfileAvatar";
 import { useUserCtx } from "../context/userCtx";
-import UserListings from "../components/UserListings";
+import UserListingsCard from "../components/UserListingsCard";
 import CreateListingsBtn from "../components/CreateListingsBtn";
 
 function Profile() {
@@ -185,7 +185,7 @@ function Profile() {
         {showListingsError ? "Error show listings!" : ""}
       </p>
       {userListings && userListings.length > 0 && (
-        <UserListings
+        <UserListingsCard
           userListings={userListings}
           setUserListings={setUserListings}
         />
