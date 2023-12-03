@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { Circles } from "react-loading-icons";
 
-const UserListings = ({ userListings, setUserListings }) => {
+const UserListingsCard = ({ userListings, setUserListings }) => {
   const [deleteListingError, setDeleteListingError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -87,9 +87,9 @@ const UserListings = ({ userListings, setUserListings }) => {
   );
 };
 
-UserListings.propTypes = {
+UserListingsCard.propTypes = {
   userListings: PropTypes.array.isRequired,
   setUserListings: PropTypes.func.isRequired
 };
 
-export default UserListings;
+export default UserListingsCard;
