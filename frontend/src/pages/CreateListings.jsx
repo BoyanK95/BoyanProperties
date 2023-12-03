@@ -3,6 +3,7 @@ import { useUserCtx } from "../context/userCtx";
 import { useNavigate } from "react-router-dom";
 import ImageCard from "../components/ImageCard";
 import UploadImageSection from "../components/UploadImageSection";
+import ListingInputs from "../components/ListingInputs";
 
 function CreateListings() {
   const { userState } = useUserCtx();
@@ -59,34 +60,34 @@ function CreateListings() {
     }
   };
 
-  const handleChange = (e) => {
-    if (e.target.id === "rent" || e.target.id === "sale") {
-      setFormData({
-        ...formData,
-        type: e.target.id,
-      });
-    }
-    if (
-      e.target.id === "parking" ||
-      e.target.id === "furnished" ||
-      e.target.id === "offer"
-    ) {
-      setFormData({
-        ...formData,
-        [e.target.id]: e.target.checked,
-      });
-    }
-    if (
-      e.target.type === "number" ||
-      e.target.type === "text" ||
-      e.target.type === "textarea"
-    ) {
-      setFormData({
-        ...formData,
-        [e.target.id]: e.target.value,
-      });
-    }
-  };
+  // const handleChange = (e) => {
+  //   if (e.target.id === "rent" || e.target.id === "sale") {
+  //     setFormData({
+  //       ...formData,
+  //       type: e.target.id,
+  //     });
+  //   }
+  //   if (
+  //     e.target.id === "parking" ||
+  //     e.target.id === "furnished" ||
+  //     e.target.id === "offer"
+  //   ) {
+  //     setFormData({
+  //       ...formData,
+  //       [e.target.id]: e.target.checked,
+  //     });
+  //   }
+  //   if (
+  //     e.target.type === "number" ||
+  //     e.target.type === "text" ||
+  //     e.target.type === "textarea"
+  //   ) {
+  //     setFormData({
+  //       ...formData,
+  //       [e.target.id]: e.target.value,
+  //     });
+  //   }
+  // };
 
   return (
     <main className="p-3 max-w-4xl mx-auto">
@@ -94,7 +95,8 @@ function CreateListings() {
         Create a Listing
       </h1>
       <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4">
-        <div className="flex flex-col gap-4 flex-1">
+        <ListingInputs formData={formData} setFormData={setFormData} />
+        {/* <div className="flex flex-col gap-4 flex-1">
           <input
             onChange={handleChange}
             value={formData.name}
@@ -243,7 +245,7 @@ function CreateListings() {
               </div>
             )}
           </div>
-        </div>
+        </div> */}
         <div className="flex flex-col gap-4 flex-1">
           <UploadImageSection
             formData={formData}
