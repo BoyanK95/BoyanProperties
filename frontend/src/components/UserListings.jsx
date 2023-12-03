@@ -1,5 +1,5 @@
-/* eslint-disable react/prop-types */
 import { useState } from "react";
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { Circles } from "react-loading-icons";
 
@@ -85,6 +85,11 @@ const UserListings = ({ userListings, setUserListings }) => {
       )}
     </div>
   );
+};
+
+UserListings.propTypes = {
+  userListings: PropTypes.array.isRequired,
+  setUserListings: PropTypes.func.isRequired
 };
 
 export default UserListings;
