@@ -166,7 +166,7 @@ const ListingInputs = ({ formData, setFormData }) => {
           <div className="flex items-center gap-2">
             <input
               onChange={handleChange}
-              value={formData.discountedPrice}
+              value={formData.discountPrice}
               className="p-3 border-gray-300 rounded-lg"
               type="number"
               id="discountPrice"
