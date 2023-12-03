@@ -41,7 +41,6 @@ function UpdateListings() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       if (formData.imageUrls.length < 1)
         return setFormError("You must upload at least one image!");
@@ -49,7 +48,7 @@ function UpdateListings() {
         return setFormError("Discount price must be lower than regular price!");
       setIsFormLoading(true);
       setFormError(false);
-      const res = await fetch(`/api/listing/update/${params.listingsId}`, {
+      const res = await fetch(`/api/listing/update/${params.listingId}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
