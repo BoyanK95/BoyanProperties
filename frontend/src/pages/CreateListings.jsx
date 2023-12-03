@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useUserCtx } from "../context/userCtx";
 import { useNavigate } from "react-router-dom";
-import ImageCard from "../components/ImageCard";
-import UploadImageSection from "../components/UploadImageSection";
-import ListingInputs from "../components/ListingInputs";
+import ImageCard from "../components/Listings/ImageCard";
+import UploadImageSection from "../components/Listings/UploadImageSection";
+import ListingInputs from "../components/Listings/ListingInputs";
 
 function CreateListings() {
   const { userState } = useUserCtx();
