@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useUserCtx } from "../context/userCtx";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ImageCard from "../components/Listings/ImageCard";
 import UploadImageSection from "../components/Listings/UploadImageSection";
 import ListingInputs from "../components/Listings/ListingInputs";
 
-function CreateListings() {
+function UpdateListings() {
   const { userState } = useUserCtx();
   const [formData, setFormData] = useState({
     imageUrls: [],
@@ -26,10 +26,19 @@ function CreateListings() {
   const [isUploading, setIsUploading] = useState(false);
 
   const navigate = useNavigate();
+  const params = useParams();
+
+  useEffect(()=> {
+    const fetchListing = async () => {
+      const res = await fetch(`/api/listing/get/${params.listingId}`)
+      const data = await res.json()
+      setFormData(data)
+    }
+    fetchListing()
+  }, [])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       if (formData.imageUrls.length < 1)
         return setFormError("You must upload at least one image!");
@@ -37,7 +46,7 @@ function CreateListings() {
         return setFormError("Discount price must be lower than regular price!");
       setIsFormLoading(true);
       setFormError(false);
-      const res = await fetch("/api/listing/create", {
+      const res = await fetch(`/api/listing/update/${params.listingId}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -63,7 +72,7 @@ function CreateListings() {
   return (
     <main className="p-3 max-w-4xl mx-auto">
       <h1 className="text-3xl font-semibold text-center my-7">
-        Create a Listing
+        Update a Listing
       </h1>
       <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4">
         <ListingInputs formData={formData} setFormData={setFormData} />
@@ -88,7 +97,7 @@ function CreateListings() {
             type="submit"
             className="p-3 bg-slate-700 text-white uppercase rounded-lg hover:opacity-95 disabled:opacity-70"
           >
-            {isFormLoading ? "Loading..." : "Create Listing"}
+            {isFormLoading ? "Loading..." : "Update Listing"}
           </button>
           {formError && <p className="text-red-700 text-sm">{formError}</p>}
         </div>
@@ -97,4 +106,4 @@ function CreateListings() {
   );
 }
 
-export default CreateListings;
+export default UpdateListings;
