@@ -21,7 +21,7 @@ export default function App() {
         <Route element={<PrivateRoute/>}>
           <Route path="/profile" element={<Profile />} />
           <Route path="/create-listing" element={<CreateListings />} />
-          <Route path="/update-listing" element={<UpdateListings />} />
+          <Route path="/update-listing/:listingId" element={<UpdateListings />} />
         </Route>
       </Routes>
     </BrowserRouter>

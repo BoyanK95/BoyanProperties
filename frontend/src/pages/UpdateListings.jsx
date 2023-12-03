@@ -29,9 +29,14 @@ function UpdateListings() {
   const params = useParams();
 
   useEffect(()=> {
-    const fetchListings = async () => {
-      //TODO fetch listing by id route
+    console.log(params);
+    const fetchListing = async () => {
+      const res = await fetch(`/api/listing/get/${params.listingId}`)
+      const data = await res.json()
+      console.log(data);
+      setFormData(data)
     }
+    fetchListing()
   }, [])
 
   const handleSubmit = async (e) => {
@@ -44,7 +49,7 @@ function UpdateListings() {
         return setFormError("Discount price must be lower than regular price!");
       setIsFormLoading(true);
       setFormError(false);
-      const res = await fetch(`/api/listing/update/${params.listingsID}`, {
+      const res = await fetch(`/api/listing/update/${params.listingsId}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
