@@ -25,10 +25,6 @@ const UserListingsCard = ({ userListings, setUserListings }) => {
     }
   };
 
-  const editListing = (id) => {
-    //TODO Create Edit functionality
-    console.log(id);
-  };
 
   return (
     <div className="flex flex-col gap-4">
@@ -62,7 +58,6 @@ const UserListingsCard = ({ userListings, setUserListings }) => {
               </button>
               <Link to={`/update-listing/${listing._id}`}>
                 <button
-                  onClick={() => editListing(listing._id)}
                   type="button"
                   className="text-green-700 font-bold uppercase hover:opacity-80"
                 >
