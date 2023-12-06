@@ -28,14 +28,17 @@ function UpdateListings() {
   const navigate = useNavigate();
   const params = useParams();
 
-  useEffect(()=> {
+  useEffect(() => {
     const fetchListing = async () => {
-      const res = await fetch(`/api/listing/get/${params.listingId}`)
-      const data = await res.json()
-      setFormData(data)
-    }
-    fetchListing()
-  }, [])
+      const res = await fetch(`/api/listing/get/${params.listingId}`);
+      const data = await res.json();
+      if (data.success === false) {
+        return console.log(data);
+      }
+      setFormData(data);
+    };
+    fetchListing();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
