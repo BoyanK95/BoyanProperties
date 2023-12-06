@@ -38,14 +38,14 @@ const UserListingsCard = ({ userListings, setUserListings }) => {
             key={listing._id}
             className="flex justify-between p-3 m-3 border hover:shadow-lg rounded-lg"
           >
-            <Link to={`/listings/${listing._id}`}>
+            <Link to={`/listing/${listing._id}`}>
               <img
                 src={listing.imageUrls[0]}
                 alt="listing-image"
                 className="w-20 h-20 object-cover rounded-lg"
               />
             </Link>
-            <Link to={`/listings/${listing._id}`}>
+            <Link to={`/listing/${listing._id}`}>
               <h3 className="font-bold">{listing.name}</h3>
             </Link>
             <div className="inline-grid">
