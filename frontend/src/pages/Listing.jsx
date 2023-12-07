@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import { Bars } from "react-loading-icons";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -15,27 +15,34 @@ const Listing = () => {
 
   const params = useParams();
 
-  useEffect(() => {
-    const fetchListing = async () => {
-      try {
-        setIsLoading(true);
-        const res = await fetch(`/api/listing/get/${params.listingId}`);
-        const data = await res.json();
-        console.log(data);
-        setIsLoading(false);
-        if (data.success === false) {
-          setHasError(true);
-          return;
-        }
-        setListing(data);
-        setHasError(false);
-      } catch (error) {
+  const fetchListing = useCallback(async () => {
+    try {
+      setIsLoading(true);
+      const res = await fetch(`/api/listing/get/${params.listingId}`);
+      const data = await res.json();
+      console.log(data);
+      setIsLoading(false);
+      if (data.success === false) {
         setHasError(true);
-        setIsLoading(false);
+        return;
       }
-    };
-    fetchListing();
+      setListing(data);
+      setHasError(false);
+    } catch (error) {
+      setHasError(true);
+      setIsLoading(false);
+    }
   }, [params.listingId]);
+
+  useEffect(() => {
+    fetchListing();
+  }, [fetchListing]);
+
+  const handleRetry = () => {
+    setHasError(false);
+    setIsLoading(false);
+    fetchListing();
+  };
 
   return (
     <main>
@@ -51,9 +58,16 @@ const Listing = () => {
         </div>
       )}
       {hasError && (
-        <p className="text-center my-10 text-2xl font-bold">
-          Something went wrong!
-        </p>
+        <div className="text-center my-10">
+          <p className="text-2xl font-bold">Something went wrong!</p>
+          <button
+            onClick={handleRetry}
+            className="mt-4 py-2 px-4 border-3 rounded-lg text-lg font-semibold hover:bg-blue-500 hover:text-white transition-colors"
+            style={{ borderColor: 'currentColor' }}
+          >
+            Retry
+          </button>
+        </div>
       )}
       {listing && !isLoading && !hasError && (
         <>
