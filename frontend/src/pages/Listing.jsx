@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { Bars } from "react-loading-icons";
 
 const Listing = () => {
   const [listing, setListing] = useState([]);
@@ -15,12 +16,11 @@ const Listing = () => {
         const res = await fetch(`/api/listing/get/${params.listingId}`);
         const data = await res.json();
         console.log(data);
+        setIsLoading(false);
         if (data.success === false) {
           setHasError(true);
-          setIsLoading(false);
           return;
         }
-        setIsLoading(false);
         setListing(data);
         setHasError(false);
       } catch (error) {
@@ -31,7 +31,21 @@ const Listing = () => {
     fetchListing();
   }, []);
 
-  return <div>Listing</div>;
+  return (
+    <main>
+      {isLoading && (
+        <div className="flex items-center justify-center mt-10">
+          <Bars
+            stroke="#708090"
+            strokeOpacity={0.75}
+            fill="#A3A8A8"
+            height="250"
+            width="250"
+          />
+        </div>
+      )}
+    </main>
+  );
 };
 
 export default Listing;
