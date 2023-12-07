@@ -44,6 +44,11 @@ const Listing = () => {
           />
         </div>
       )}
+      {hasError && (
+        <p className="text-center my-10 text-2xl font-bold">
+          Something went wrong!
+        </p>
+      )}
     </main>
   );
 };
