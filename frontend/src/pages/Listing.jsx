@@ -29,18 +29,18 @@ const Listing = () => {
       }
     };
     fetchListing();
-  }, []);
+  }, [params.listingId]);
 
   return (
     <main>
       {isLoading && (
-        <div className="flex items-center justify-center mt-10">
+        <div className="flex items-center justify-center my-10">
           <Bars
             stroke="#708090"
-            strokeOpacity={0.75}
+            strokeOpacity={0.55}
             fill="#A3A8A8"
-            height="250"
-            width="250"
+            height="350"
+            width="350"
           />
         </div>
       )}
