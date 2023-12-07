@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
-import { Bars } from "react-loading-icons";
+import LoadingBars from "../components/LoaderIcons/LoadingBars";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore from "swiper";
 import { Autoplay, Navigation } from "swiper/modules";
@@ -47,15 +47,7 @@ const Listing = () => {
   return (
     <main>
       {isLoading && (
-        <div className="flex items-center justify-center my-10">
-          <Bars
-            stroke="#708090"
-            strokeOpacity={0.55}
-            fill="#A3A8A8"
-            height="350"
-            width="350"
-          />
-        </div>
+       <LoadingBars />
       )}
       {hasError && (
         <div className="text-center my-10">
