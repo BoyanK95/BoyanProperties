@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { Bars } from "react-loading-icons";
 
 const Listing = () => {
-  const [listing, setListing] = useState([]);
+  const [listing, setListing] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
 
@@ -48,6 +48,11 @@ const Listing = () => {
         <p className="text-center my-10 text-2xl font-bold">
           Something went wrong!
         </p>
+      )}
+      {listing && !isLoading && !hasError && (
+        <div className="flex items-center justify-center my-7">
+          <h1>{listing.name}</h1>
+        </div>
       )}
     </main>
   );
