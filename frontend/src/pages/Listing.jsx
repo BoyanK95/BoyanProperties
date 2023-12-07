@@ -1,8 +1,14 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Bars } from "react-loading-icons";
+import { Swiper, SwiperSlide } from "swiper/react";
+import SwiperCore from "swiper";
+import { Autoplay, Navigation } from "swiper/modules";
+import "swiper/css/bundle";
 
 const Listing = () => {
+  SwiperCore.use([Navigation, Autoplay]);
+
   const [listing, setListing] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
@@ -50,9 +56,21 @@ const Listing = () => {
         </p>
       )}
       {listing && !isLoading && !hasError && (
-        <div className="flex items-center justify-center my-7">
-          <h1>{listing.name}</h1>
-        </div>
+        <>
+          <Swiper navigation>
+            {listing.imageUrls.map((url, index) => (
+              <SwiperSlide key={index}>
+                <div
+                  className="h-[600px] w-full object-cover"
+                  style={{
+                    background: `url(${url}) center no-repeat`,
+                    backgroundSize: "cover",
+                  }}
+                ></div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </>
       )}
     </main>
   );
