@@ -1,6 +1,7 @@
 import { useEffect, useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import LoadingBars from "../components/LoaderIcons/LoadingBars";
+import ErrorState from "../components/ErrorState/ErrorState";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore from "swiper";
 import { Autoplay, Navigation } from "swiper/modules";
@@ -46,21 +47,8 @@ const Listing = () => {
 
   return (
     <main>
-      {isLoading && (
-       <LoadingBars />
-      )}
-      {hasError && (
-        <div className="text-center my-10">
-          <p className="text-2xl font-bold">Something went wrong!</p>
-          <button
-            onClick={handleRetry}
-            className="mt-4 py-2 px-4 border-3 rounded-lg text-lg font-semibold hover:bg-blue-500 hover:text-white transition-colors"
-            style={{ borderColor: 'currentColor' }}
-          >
-            Retry
-          </button>
-        </div>
-      )}
+      {isLoading && <LoadingBars />}
+      {hasError && <ErrorState handleRetry={handleRetry} />}
       {listing && !isLoading && !hasError && (
         <>
           <Swiper navigation>
