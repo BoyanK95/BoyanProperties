@@ -4,11 +4,11 @@ import LoadingBars from "../components/LoaderIcons/LoadingBars";
 import ErrorState from "../components/ErrorState/ErrorState";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore from "swiper";
-import { Autoplay, Navigation } from "swiper/modules";
+import { Autoplay, EffectFade, Navigation, Pagination } from "swiper/modules";
 import "swiper/css/bundle";
 
 const Listing = () => {
-  SwiperCore.use([Navigation, Autoplay]);
+  SwiperCore.use([Navigation, Autoplay, EffectFade, Pagination]);
 
   const [listing, setListing] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -51,7 +51,14 @@ const Listing = () => {
       {hasError && <ErrorState handleRetry={handleRetry} />}
       {listing && !isLoading && !hasError && (
         <>
-          <Swiper navigation>
+          <Swiper
+            navigation
+            pagination={{ clickable: true }}
+            autoplay={{ delay: 4000 }}
+            effect="fade"
+            fadeEffect={{ crossFade: true }}
+            className="mySwiper"
+          >
             {listing.imageUrls.map((url, index) => (
               <SwiperSlide key={index}>
                 <div
