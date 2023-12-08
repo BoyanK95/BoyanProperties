@@ -8,13 +8,13 @@ import {
   FaMapMarkedAlt,
   FaMapMarkerAlt,
   FaParking,
-  FaShare,
 } from "react-icons/fa";
 import ErrorState from "../components/ErrorState/ErrorState";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore from "swiper";
 import { Autoplay, EffectFade, Navigation, Pagination } from "swiper/modules";
 import "swiper/css/bundle";
+import CoppyLinkButton from "../components/CoppyLinkButton/CoppyLinkButton";
 
 const Listing = () => {
   SwiperCore.use([Navigation, Autoplay, EffectFade, Pagination]);
@@ -22,7 +22,6 @@ const Listing = () => {
   const [listing, setListing] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
-  const [isCoppied, setIsCoppied] = useState(false);
 
   const params = useParams();
 
@@ -49,14 +48,6 @@ const Listing = () => {
     fetchListing();
   }, [fetchListing]);
 
-  const handleCoppyLink = () => {
-    navigator.clipboard.writeText(window.location.href);
-    setIsCoppied(true);
-    setTimeout(() => {
-      setIsCoppied(false);
-    }, 2000);
-  };
-
   const handleRetry = () => {
     setHasError(false);
     setIsLoading(false);
@@ -69,6 +60,7 @@ const Listing = () => {
       {hasError && <ErrorState handleRetry={handleRetry} />}
       {listing && !isLoading && !hasError && (
         <>
+          <CoppyLinkButton />
           <Swiper
             navigation
             pagination={{ clickable: true }}
@@ -89,14 +81,6 @@ const Listing = () => {
               </SwiperSlide>
             ))}
           </Swiper>
-          <div className="fixed top-[13%] right-[3%] z-10 border rounded-full w-12 h-12 flex justify-center items-center bg-slate-100 cursor-pointer hover:shadow-md">
-            <FaShare className="text-slate-500" onClick={handleCoppyLink} />
-          </div>
-          {isCoppied && (
-            <p className="fixed top-[19%] right-[2%] z-10 rounded-md bg-slate-100 p-2">
-              Link coppied!
-            </p>
-          )}
         </>
       )}
     </main>
