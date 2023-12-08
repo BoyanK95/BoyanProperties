@@ -1,20 +1,14 @@
 import { useEffect, useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import LoadingBars from "../components/LoaderIcons/LoadingBars";
-import {
-  FaBath,
-  FaBed,
-  FaChair,
-  FaMapMarkedAlt,
-  FaMapMarkerAlt,
-  FaParking,
-} from "react-icons/fa";
+import CoppyLinkButton from "../components/CoppyLinkButton/CoppyLinkButton";
+import ListingFeatures from "../components/ListingFeatures/ListingFeatures";
+import { FaMapMarkerAlt } from "react-icons/fa";
 import ErrorState from "../components/ErrorState/ErrorState";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore from "swiper";
 import { Autoplay, EffectFade, Navigation, Pagination } from "swiper/modules";
 import "swiper/css/bundle";
-import CoppyLinkButton from "../components/CoppyLinkButton/CoppyLinkButton";
 
 const Listing = () => {
   SwiperCore.use([Navigation, Autoplay, EffectFade, Pagination]);
@@ -105,28 +99,7 @@ const Listing = () => {
               <span className="font-semibold text-black">Description: </span>
               {listing.description}
             </p>
-            <ul className="text-green-900 text-sm font-semibold flex flex-wrap items-center gap-4 sm:gap-6">
-              <li className="flex items-center gap-1 whitespace-nowrap">
-                <FaBed className="text-lg" />
-                {listing.bedrooms > 1
-                  ? ` ${listing.bedrooms} beds`
-                  : ` ${listing.bedrooms} bed`}
-              </li>
-              <li className="flex items-center gap-1 whitespace-nowrap">
-                <FaBath className="text-lg" />
-                {listing.bathrooms > 1
-                  ? ` ${listing.bathrooms} bathrooms`
-                  : ` ${listing.bathrooms} bathroom`}
-              </li>
-              <li className="flex items-center gap-1 whitespace-nowrap">
-                <FaParking className="text-lg" />
-                {listing.parking ? "Parking spot" : "No Parking"}
-              </li>
-              <li className="flex items-center gap-1 whitespace-nowrap">
-                <FaChair className="text-lg" />
-                {listing.furnished ? "Furnished" : "Unfurnished"}
-              </li>
-            </ul>
+            <ListingFeatures listing={listing} />
           </div>
         </>
       )}
