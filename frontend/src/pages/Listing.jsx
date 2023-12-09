@@ -8,16 +8,26 @@ import ErrorState from "../components/ErrorState/ErrorState";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore from "swiper";
 import { Autoplay, EffectFade, Navigation, Pagination } from "swiper/modules";
+import { useUserCtx } from "../context/userCtx";
 import "swiper/css/bundle";
 
 const Listing = () => {
   SwiperCore.use([Navigation, Autoplay, EffectFade, Pagination]);
 
+  const { userState } = useUserCtx();
+  const currentUser = userState.currentUser;
+  // console.log(currentUser);
+
   const [listing, setListing] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
+  const [showContact, setShowContact] = useState(false);
 
   const params = useParams();
+
+  // console.log(currentUser._id);
+  // console.log(listing?.userRef);
+  // console.log(currentUser._id === listing?.userRef);
 
   const fetchListing = useCallback(async () => {
     try {
@@ -66,7 +76,7 @@ const Listing = () => {
             {listing.imageUrls.map((url, index) => (
               <SwiperSlide key={index}>
                 <div
-                  className="h-[580px] w-full object-cover"
+                  className="h-[550px] w-full object-cover"
                   style={{
                     background: `url(${url}) center no-repeat`,
                     backgroundSize: "cover",
@@ -83,7 +93,7 @@ const Listing = () => {
                 : listing.regularPrice.toLocaleString("en-US")}
               {listing.type === "rent" && " / month"}
             </p>
-            <p className="flex items-center mt-6 gap-2 text-slate-600 text-sm">
+            <p className="flex items-center mt-5 gap-2 text-slate-600 text-sm">
               <FaMapMarkerAlt />
               {listing.address}
             </p>
@@ -92,7 +102,9 @@ const Listing = () => {
                 {listing.type === "rent" ? "For Rent" : "For Sale"}
               </p>
               {listing.offer && (
-                <p>${+listing.regularPrice - +listing.discountPrice} OFF</p>
+                <p className="bg-green-900 w-full max-w-[200px] text-white text-center p-1 rounded-md">
+                  ${+listing.regularPrice - +listing.discountPrice} OFF
+                </p>
               )}
             </div>
             <p className="text-slate-800">
@@ -100,6 +112,16 @@ const Listing = () => {
               {listing.description}
             </p>
             <ListingFeatures listing={listing} />
+            {currentUser &&
+              listing?.userRef === currentUser._id &&
+              !showContact && (
+                <button
+                  onClick={() => setShowContact(true)}
+                  className="bg-slate-700 text-white rounded-lg uppercase p-2 hover:opacity-90"
+                >
+                  Contact landlord
+                </button>
+              )}
           </div>
         </>
       )}
