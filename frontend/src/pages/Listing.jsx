@@ -113,7 +113,7 @@ const Listing = () => {
             </p>
             <ListingFeatures listing={listing} />
             {currentUser &&
-              listing?.userRef === currentUser._id &&
+              listing?.userRef !== currentUser._id &&
               !showContact && (
                 <button
                   onClick={() => setShowContact(true)}
