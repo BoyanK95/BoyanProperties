@@ -16,7 +16,6 @@ const Listing = () => {
 
   const { userState } = useUserCtx();
   const currentUser = userState.currentUser;
-  // console.log(currentUser);
 
   const [listing, setListing] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -24,10 +23,6 @@ const Listing = () => {
   const [showContact, setShowContact] = useState(false);
 
   const params = useParams();
-
-  // console.log(currentUser._id);
-  // console.log(listing?.userRef);
-  // console.log(currentUser._id === listing?.userRef);
 
   const fetchListing = useCallback(async () => {
     try {
