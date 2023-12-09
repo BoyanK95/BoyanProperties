@@ -9,6 +9,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore from "swiper";
 import { Autoplay, EffectFade, Navigation, Pagination } from "swiper/modules";
 import { useUserCtx } from "../context/userCtx";
+import ContactSection from "../components/ContactLandlord/ContactSection";
 import "swiper/css/bundle";
 
 const Listing = () => {
@@ -117,6 +118,7 @@ const Listing = () => {
                   Contact landlord
                 </button>
               )}
+            {showContact && <ContactSection listing={listing} />}
           </div>
         </>
       )}
