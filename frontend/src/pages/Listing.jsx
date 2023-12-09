@@ -76,7 +76,7 @@ const Listing = () => {
             {listing.imageUrls.map((url, index) => (
               <SwiperSlide key={index}>
                 <div
-                  className="h-[550px] w-full object-cover"
+                  className="h-[530px] w-full object-cover"
                   style={{
                     background: `url(${url}) center no-repeat`,
                     backgroundSize: "cover",
@@ -117,7 +117,7 @@ const Listing = () => {
               !showContact && (
                 <button
                   onClick={() => setShowContact(true)}
-                  className="bg-slate-700 text-white rounded-lg uppercase p-2 hover:opacity-90"
+                  className="bg-slate-700 text-white rounded-lg uppercase p-3 hover:opacity-90 mt-1"
                 >
                   Contact landlord
                 </button>
