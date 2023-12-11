@@ -5,16 +5,10 @@ import CoppyLinkButton from "../components/CoppyLinkButton/CoppyLinkButton";
 import ListingFeatures from "../components/ListingFeatures/ListingFeatures";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import ErrorState from "../components/ErrorState/ErrorState";
-import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore from "swiper";
-import { Autoplay, EffectFade, Navigation, Pagination } from "swiper/modules";
 import { useUserCtx } from "../context/userCtx";
-import "swiper/css/bundle";
 import SwiperComponent from "../components/SwiperComponent/SwiperComponent";
 
 const Listing = () => {
-  SwiperCore.use([Navigation, Autoplay, EffectFade, Pagination]);
-
   const { userState } = useUserCtx();
   const currentUser = userState.currentUser;
   // console.log(currentUser);
