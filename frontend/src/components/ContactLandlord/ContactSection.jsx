@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import ErrorState from "../ErrorState/ErrorState";
 
 const ContactSection = ({ listing }) => {
   const [landlord, setLandlord] = useState();
@@ -8,33 +9,41 @@ const ContactSection = ({ listing }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
 
-  useEffect(() => {
-    const fetchLandlord = async () => {
-      try {
-        setIsLoading(true);
-        const res = await fetch(`/api/user/${listing.userRef}`);
-        const data = await res.json();
-        setIsLoading(false);
-        if (data.success === false) {
-          setHasError(true);
-          return;
-        }
-        setLandlord(data);
-        setHasError(false);
-      } catch (error) {
+  const fetchLandlord = useCallback(async () => {
+    try {
+      setIsLoading(true);
+      const res = await fetch(`/api/user/${listing.userRef}`);
+      const data = await res.json();
+      setIsLoading(false);
+      if (data.success === false) {
         setHasError(true);
-        setIsLoading(false);
+        return;
       }
-    };
-    fetchLandlord();
+      setLandlord(data);
+      setHasError(false);
+    } catch (error) {
+      setHasError(true);
+      setIsLoading(false);
+    }
   }, [listing.userRef]);
+
+  useEffect(() => {
+    fetchLandlord();
+  }, [fetchLandlord]);
 
   const handleChange = (e) => {
     setMessage(e.target.value);
   };
 
+  const handleRetry = () => {
+    setHasError(false);
+    setIsLoading(false);
+    fetchLandlord();
+  };
+
   return (
     <>
+      {hasError && <ErrorState handleRetry={handleRetry} />}
       {landlord && !isLoading && !hasError && (
         <div className="flex flex-col gap-2 mt-3">
           <p>
