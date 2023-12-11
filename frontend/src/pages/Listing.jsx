@@ -10,6 +10,7 @@ import SwiperCore from "swiper";
 import { Autoplay, EffectFade, Navigation, Pagination } from "swiper/modules";
 import { useUserCtx } from "../context/userCtx";
 import "swiper/css/bundle";
+import SwiperComponent from "../components/SwiperComponent/SwiperComponent";
 
 const Listing = () => {
   SwiperCore.use([Navigation, Autoplay, EffectFade, Pagination]);
@@ -65,26 +66,7 @@ const Listing = () => {
       {listing && !isLoading && !hasError && (
         <>
           <CoppyLinkButton />
-          <Swiper
-            navigation
-            pagination={{ clickable: true }}
-            autoplay={{ delay: 4000 }}
-            effect="fade"
-            fadeEffect={{ crossFade: true }}
-            className="mySwiper"
-          >
-            {listing.imageUrls.map((url, index) => (
-              <SwiperSlide key={index}>
-                <div
-                  className="h-[550px] w-full object-cover"
-                  style={{
-                    background: `url(${url}) center no-repeat`,
-                    backgroundSize: "cover",
-                  }}
-                ></div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
+          <SwiperComponent listing={listing} />
           <div className="flex flex-col max-w-4xl mx-auto p-3 my-7 gap-4">
             <p className="text-2xl font-semibold">
               {listing.name} -{" "}
