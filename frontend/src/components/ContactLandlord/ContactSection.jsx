@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ErrorState from "../ErrorState/ErrorState";
+import SkeletonMessageLoader from "../LoaderIcons/SkeletonMessageLoader";
 
 const ContactSection = ({ listing }) => {
   const [landlord, setLandlord] = useState();
@@ -43,6 +44,7 @@ const ContactSection = ({ listing }) => {
 
   return (
     <>
+    {isLoading && <SkeletonMessageLoader />}
       {hasError && <ErrorState handleRetry={handleRetry} />}
       {landlord && !isLoading && !hasError && (
         <div className="flex flex-col gap-2 mt-3">
