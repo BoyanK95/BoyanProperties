@@ -14,7 +14,6 @@ const ContactSection = ({ listing }) => {
         setIsLoading(true);
         const res = await fetch(`/api/user/${listing.userRef}`);
         const data = await res.json();
-        console.log(data);
         setIsLoading(false);
         if (data.success === false) {
           setHasError(true);
@@ -33,8 +32,6 @@ const ContactSection = ({ listing }) => {
   const handleChange = (e) => {
     setMessage(e.target.value);
   };
-
-  console.log(message);
 
   return (
     <>
