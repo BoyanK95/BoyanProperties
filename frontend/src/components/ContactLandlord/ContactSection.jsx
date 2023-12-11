@@ -31,8 +31,8 @@ const ContactSection = ({ listing }) => {
 
   return (
     <>
-      {landlord && (
-        <div className="">
+      {landlord && !isLoading && !hasError && (
+        <div className="flex flex-col gap-2 mt-3">
           <p>
             Contact{" "}
             <span className="font-semibold text-slate-900">
@@ -43,7 +43,13 @@ const ContactSection = ({ listing }) => {
               {listing.name.toLowerCase()}
             </span>
           </p>
-          <textarea name="message" id="message" rows="3"></textarea>
+          <textarea
+          className="border rounded-lg shadow-lg p-3 w-full"
+            name="message"
+            id="message"
+            rows="3"
+            placeholder="Enter you message here..."
+          ></textarea>
         </div>
       )}
     </>
