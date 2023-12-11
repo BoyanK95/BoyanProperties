@@ -30,7 +30,6 @@ const Listing = () => {
       setIsLoading(true);
       const res = await fetch(`/api/listing/get/${params.listingId}`);
       const data = await res.json();
-      console.log(data);
       setIsLoading(false);
       if (data.success === false) {
         setHasError(true);
