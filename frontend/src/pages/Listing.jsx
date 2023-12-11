@@ -86,8 +86,8 @@ const Listing = () => {
               {listing.name} -{" "}
               {listing.offer
                 ? listing.discountPrice.toLocaleString("en-US")
-                : listing.regularPrice.toLocaleString("en-US")}
-              {listing.type === "rent" &&  ` / ${currency.EU} month`}
+                : listing.regularPrice.toLocaleString("en-US")} {currency.EU}
+              {listing.type === "rent" &&  ` / month`}
             </p>
             <p className="flex items-center mt-5 gap-2 text-slate-600 text-sm">
               <FaMapMarkerAlt />
