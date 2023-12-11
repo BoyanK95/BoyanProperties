@@ -9,6 +9,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore from "swiper";
 import { Autoplay, EffectFade, Navigation, Pagination } from "swiper/modules";
 import { useUserCtx } from "../context/userCtx";
+import ContactSection from "../components/ContactLandlord/ContactSection";
 import "swiper/css/bundle";
 
 const Listing = () => {
@@ -16,7 +17,6 @@ const Listing = () => {
 
   const { userState } = useUserCtx();
   const currentUser = userState.currentUser;
-  // console.log(currentUser);
 
   const [listing, setListing] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -25,16 +25,11 @@ const Listing = () => {
 
   const params = useParams();
 
-  // console.log(currentUser._id);
-  // console.log(listing?.userRef);
-  // console.log(currentUser._id === listing?.userRef);
-
   const fetchListing = useCallback(async () => {
     try {
       setIsLoading(true);
       const res = await fetch(`/api/listing/get/${params.listingId}`);
       const data = await res.json();
-      console.log(data);
       setIsLoading(false);
       if (data.success === false) {
         setHasError(true);
@@ -76,7 +71,7 @@ const Listing = () => {
             {listing.imageUrls.map((url, index) => (
               <SwiperSlide key={index}>
                 <div
-                  className="h-[550px] w-full object-cover"
+                  className="h-[530px] w-full object-cover"
                   style={{
                     background: `url(${url}) center no-repeat`,
                     backgroundSize: "cover",
@@ -113,15 +108,16 @@ const Listing = () => {
             </p>
             <ListingFeatures listing={listing} />
             {currentUser &&
-              listing?.userRef === currentUser._id &&
+              listing?.userRef !== currentUser._id &&
               !showContact && (
                 <button
                   onClick={() => setShowContact(true)}
-                  className="bg-slate-700 text-white rounded-lg uppercase p-2 hover:opacity-90"
+                  className="bg-slate-700 text-white rounded-lg uppercase p-3 hover:opacity-90 mt-1"
                 >
                   Contact landlord
                 </button>
               )}
+            {showContact && <ContactSection listing={listing} />}
           </div>
         </>
       )}
