@@ -11,7 +11,6 @@ import SwiperComponent from "../components/SwiperComponent/SwiperComponent";
 const Listing = () => {
   const { userState } = useUserCtx();
   const currentUser = userState.currentUser;
-  // console.log(currentUser);
 
   const [listing, setListing] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -20,16 +19,11 @@ const Listing = () => {
 
   const params = useParams();
 
-  // console.log(currentUser._id);
-  // console.log(listing?.userRef);
-  // console.log(currentUser._id === listing?.userRef);
-
   const fetchListing = useCallback(async () => {
     try {
       setIsLoading(true);
       const res = await fetch(`/api/listing/get/${params.listingId}`);
       const data = await res.json();
-      console.log(data);
       setIsLoading(false);
       if (data.success === false) {
         setHasError(true);
@@ -66,8 +60,8 @@ const Listing = () => {
               {listing.name} -{" "}
               {listing.offer
                 ? listing.discountPrice.toLocaleString("en-US")
-                : listing.regularPrice.toLocaleString("en-US")}
-              {listing.type === "rent" && " / month"}
+                : listing.regularPrice.toLocaleString("en-US")} {currency.EU}
+              {listing.type === "rent" &&  ` / month`}
             </p>
             <p className="flex items-center mt-5 gap-2 text-slate-600 text-sm">
               <FaMapMarkerAlt />
@@ -79,7 +73,7 @@ const Listing = () => {
               </p>
               {listing.offer && (
                 <p className="bg-green-900 w-full max-w-[200px] text-white text-center p-1 rounded-md">
-                  ${+listing.regularPrice - +listing.discountPrice} OFF
+                  {+listing.regularPrice - +listing.discountPrice} {currency.EU} OFF
                 </p>
               )}
             </div>
@@ -89,15 +83,16 @@ const Listing = () => {
             </p>
             <ListingFeatures listing={listing} />
             {currentUser &&
-              listing?.userRef === currentUser._id &&
+              listing?.userRef !== currentUser._id &&
               !showContact && (
                 <button
                   onClick={() => setShowContact(true)}
-                  className="bg-slate-700 text-white rounded-lg uppercase p-2 hover:opacity-90"
+                  className="bg-slate-700 text-white rounded-lg uppercase p-3 hover:opacity-90 mt-1"
                 >
                   Contact landlord
                 </button>
               )}
+            {showContact && <ContactSection listing={listing} />}
           </div>
         </>
       )}

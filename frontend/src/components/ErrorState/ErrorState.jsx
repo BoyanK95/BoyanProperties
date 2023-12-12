@@ -6,7 +6,7 @@ const ErrorState = ({ handleRetry }) => {
       <p className="text-2xl font-bold">Something went wrong!</p>
       <button
         onClick={handleRetry}
-        className="mt-4 py-2 px-4 border-3 rounded-lg text-lg font-semibold hover:bg-blue-500 hover:text-white transition-colors"
+        className="mt-4 py-2 px-7 border-3 bg-slate-300 shadow-md rounded-lg text-lg font-semibold hover:bg-blue-500 hover:text-white transition-colors"
         style={{ borderColor: "currentColor" }}
       >
         Retry

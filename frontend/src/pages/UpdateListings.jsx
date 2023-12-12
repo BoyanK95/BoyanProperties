@@ -38,7 +38,7 @@ function UpdateListings() {
       setFormData(data);
     };
     fetchListing();
-  }, []);
+  }, [params.listingId]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
