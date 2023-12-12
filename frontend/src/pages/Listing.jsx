@@ -5,17 +5,10 @@ import CoppyLinkButton from "../components/CoppyLinkButton/CoppyLinkButton";
 import ListingFeatures from "../components/ListingFeatures/ListingFeatures";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import ErrorState from "../components/ErrorState/ErrorState";
-import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore from "swiper";
-import { Autoplay, EffectFade, Navigation, Pagination } from "swiper/modules";
 import { useUserCtx } from "../context/userCtx";
-import ContactSection from "../components/ContactLandlord/ContactSection";
-import "swiper/css/bundle";
-import { currency } from "../constants/currency";
+import SwiperComponent from "../components/SwiperComponent/SwiperComponent";
 
 const Listing = () => {
-  SwiperCore.use([Navigation, Autoplay, EffectFade, Pagination]);
-
   const { userState } = useUserCtx();
   const currentUser = userState.currentUser;
 
@@ -61,26 +54,7 @@ const Listing = () => {
       {listing && !isLoading && !hasError && (
         <>
           <CoppyLinkButton />
-          <Swiper
-            navigation
-            pagination={{ clickable: true }}
-            autoplay={{ delay: 4000 }}
-            effect="fade"
-            fadeEffect={{ crossFade: true }}
-            className="mySwiper"
-          >
-            {listing.imageUrls.map((url, index) => (
-              <SwiperSlide key={index}>
-                <div
-                  className="h-[530px] w-full object-cover"
-                  style={{
-                    background: `url(${url}) center no-repeat`,
-                    backgroundSize: "cover",
-                  }}
-                ></div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
+          <SwiperComponent listing={listing} />
           <div className="flex flex-col max-w-4xl mx-auto p-3 my-7 gap-4">
             <p className="text-2xl font-semibold">
               {listing.name} -{" "}
