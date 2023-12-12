@@ -3,10 +3,12 @@ import { useParams } from "react-router-dom";
 import LoadingBars from "../components/LoaderIcons/LoadingBars";
 import CoppyLinkButton from "../components/CoppyLinkButton/CoppyLinkButton";
 import ListingFeatures from "../components/ListingFeatures/ListingFeatures";
+import SwiperComponent from "../components/SwiperComponent/SwiperComponent";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import ErrorState from "../components/ErrorState/ErrorState";
+import { currency } from "../constants/currency";
+import ContactSection from "../components/ContactLandlord/ContactSection";
 import { useUserCtx } from "../context/userCtx";
-import SwiperComponent from "../components/SwiperComponent/SwiperComponent";
 
 const Listing = () => {
   const { userState } = useUserCtx();
