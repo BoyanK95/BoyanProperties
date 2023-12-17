@@ -1,6 +1,6 @@
 import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
-import { app } from "../firebase";
-import { useUserCtx } from "../context/userCtx";
+import { app } from "../../firebase";
+import { useUserCtx } from "../../context/userCtx";
 import { useNavigate } from "react-router-dom";
 
 export default function OAuth() {

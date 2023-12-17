@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import { useUserCtx } from "../context/userCtx";
-import { autoProfilePicString } from "../assets/autoProfilePic";
-import Searchbar from "./Searchbar/Searchbar";
+import { useUserCtx } from "../../../context/userCtx";
+import { autoProfilePicString } from "../../../assets/autoProfilePic";
+import Searchbar from "../Searchbar/Searchbar";
 
 function Header() {
   const { userState } = useUserCtx();
