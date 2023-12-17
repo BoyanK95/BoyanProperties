@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
@@ -14,6 +14,15 @@ const Searchbar = () => {
     navigate(`/search?${searchQuery}`);
   };
 
+  useEffect(() => {
+    const urlParams = new URLSearchParams(location.search);
+    const searchTermFromUrl = urlParams.get("searchTerm");
+
+    if (searchTermFromUrl) {
+      setSearchTerm(searchTermFromUrl);
+    }
+  }, [location.search]);
+
   console.log(searchTerm);
   return (
     <form
@@ -23,6 +32,7 @@ const Searchbar = () => {
       <input
         className="bg-transparent focus:outline-none w-full sm:64"
         onChange={(e) => setSearchTerm(e.target.value)}
+        value={searchTerm}
         type="text"
         placeholder="Search..."
       />
