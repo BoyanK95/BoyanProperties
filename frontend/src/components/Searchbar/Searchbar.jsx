@@ -13,7 +13,9 @@ const Searchbar = () => {
         type="text"
         placeholder="Search..."
       />
-      <FaSearch className="text-slate-500" />
+      <button type="submit">
+        <FaSearch className="text-slate-500" />
+      </button>
     </form>
   );
 };
