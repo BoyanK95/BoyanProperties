@@ -57,13 +57,23 @@ const Search = () => {
           </div>
           <div className="flex items-center gap-3">
             <label htmlFor="sort">Sort:</label>
-            <select className="border rounded-lg p-2 text-center" name="sortOrder" id="sortOrder">
-                <option value="price-hight-to-low">Price hight to low</option>
-                <option value="price-low-to-hight">Price low to hight</option>
-                <option value="latest">Latest</option>
-                <option value="oldest">Oldest</option>
+            <select
+              className="border rounded-lg p-2 text-center"
+              name="sortOrder"
+              id="sortOrder"
+            >
+              <option value="price-hight-to-low">Price hight to low</option>
+              <option value="price-low-to-hight">Price low to hight</option>
+              <option value="latest">Latest</option>
+              <option value="oldest">Oldest</option>
             </select>
           </div>
+          <button
+            className="bg-slate-700 text-white p-3 rounded-lg uppercase hover:bg-blue-600 disabled:bg-slate-500 font-semibold"
+            type="submit"
+          >
+            Search
+          </button>
         </form>
       </div>
       <div className="">
