@@ -23,7 +23,6 @@ const Searchbar = () => {
     }
   }, [location.search]);
 
-  console.log(searchTerm);
   return (
     <form
       className="bg-slate-100 p-3 rounded-lg flex items-center"
