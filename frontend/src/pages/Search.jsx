@@ -4,7 +4,10 @@ const Search = () => {
       <div className="p-7 border-b-2 md:border-r-2 md:min-h-screen">
         <form className="flex flex-col gap-8">
           <div className="flex items-center gap-2">
-            <label className="whitespace-nowrap" htmlFor="searchTerm">
+            <label
+              className="whitespace-nowrap font-semibold"
+              htmlFor="searchTerm"
+            >
               Search Term:
             </label>
             <input
@@ -16,7 +19,9 @@ const Search = () => {
             />
           </div>
           <div className="flex gap-2 flex-wrap items-center">
-            <label htmlFor="type">Type:</label>
+            <label className="font-semibold" htmlFor="type">
+              Type:
+            </label>
             <div>
               <input className="w-5" type="checkbox" name="all" id="all" />
               <span>Rent & Sale</span>
@@ -35,7 +40,9 @@ const Search = () => {
             </div>
           </div>
           <div className="flex gap-2 flex-wrap items-center">
-            <label htmlFor="amenities">Amenities:</label>
+            <label className="font-semibold" htmlFor="amenities">
+              Amenities:
+            </label>
             <div>
               <input
                 className="w-5"
@@ -56,7 +63,9 @@ const Search = () => {
             </div>
           </div>
           <div className="flex items-center gap-3">
-            <label htmlFor="sort">Sort:</label>
+            <label className="font-semibold" htmlFor="sort">
+              Sort:
+            </label>
             <select
               className="border rounded-lg p-2 text-center"
               name="sortOrder"
@@ -76,7 +85,7 @@ const Search = () => {
           </button>
         </form>
       </div>
-      <div className="">
+      <div className="text-3xl font-semibold border-b p-3 text-slate-700 mt-2">
         <h1>Listing results:</h1>
       </div>
     </main>
