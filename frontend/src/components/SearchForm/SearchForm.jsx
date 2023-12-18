@@ -1,6 +1,17 @@
-
+import { useEffect, useState } from "react";
 
 const SearchForm = () => {
+  const [searchTerm, setSearchTerm] = useState("");
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(location.search);
+    const searchTermFromUrl = urlParams.get("searchTerm");
+
+    if (searchTermFromUrl) {
+      setSearchTerm(searchTermFromUrl);
+    }
+  }, []);
+
   return (
     <form className="flex flex-col gap-8">
       <div className="flex items-center gap-2">
@@ -12,6 +23,8 @@ const SearchForm = () => {
           type="text"
           name="searchTerm"
           id="searchTerm"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
           placeholder="Search..."
         />
       </div>
