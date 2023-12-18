@@ -12,8 +12,13 @@ const SearchForm = () => {
     }
   }, []);
 
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    //TODO form submit logic
+  }
+
   return (
-    <form className="flex flex-col gap-8">
+    <form className="flex flex-col gap-8" onSubmit={handleSubmit}>
       <div className="flex items-center gap-2">
         <label className="whitespace-nowrap font-semibold" htmlFor="searchTerm">
           Search Term:
