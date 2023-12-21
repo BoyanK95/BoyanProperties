@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const SearchForm = () => {
   const [searchData, setSearchData] = useState({
@@ -10,6 +11,8 @@ const SearchForm = () => {
     sort: "createdAt",
     order: "desc",
   });
+
+  const navigate = useNavigate()
 
   const handleChange = (e) => {
     if (
@@ -34,7 +37,6 @@ const SearchForm = () => {
       });
     }
     if (e.target.id === "sortOrder") {
-      // const [sort, order] = e.target.value.split("_");
       const sort = e.target.value.split("_")[0] || "createdAt";
       const order = e.target.value.split("_")[1] || "desc";
       setSearchData({ ...searchData, sort, order });
@@ -57,11 +59,16 @@ const SearchForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    //TODO form submit logic
-    // const urlParams = new URLSearchParams(window.location.search);
-    // urlParams.set("searchTerm", searchData.searchTerm);
-    // const searchQuery = urlParams.toString();
-    // navigate(`/search?${searchQuery}`);
+    const urlParams = new URLSearchParams();
+    urlParams.set("searchTerm", searchData.searchTerm);
+    urlParams.set("type", searchData.type);
+    urlParams.set("parking", searchData.parking);
+    urlParams.set("offer", searchData.offer);
+    urlParams.set("furnished", searchData.furnished);
+    urlParams.set("sort", searchData.sort);
+    urlParams.set("order", searchData.order);
+    const searchQuery = urlParams.toString();
+    navigate(`/search?${searchQuery}`);
   };
 
   return (
