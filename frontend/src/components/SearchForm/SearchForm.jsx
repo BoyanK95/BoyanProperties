@@ -12,7 +12,7 @@ const SearchForm = () => {
     order: "desc",
   });
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     if (
@@ -43,16 +43,34 @@ const SearchForm = () => {
     }
   };
 
-  console.log(searchData);
-
+  /** Get searchData from URL */
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
     const searchTermFromUrl = urlParams.get("searchTerm");
+    const typeFromUrl = urlParams.get("type");
+    const parkingFromUrl = urlParams.get("parking");
+    const offerFromUrl = urlParams.get("offer");
+    const furnishedFromUrl = urlParams.get("furnished");
+    const sortFromUrl = urlParams.get("sort");
+    const orderFromUrl = urlParams.get("order");
 
-    if (searchTermFromUrl) {
+    if (
+      searchTermFromUrl ||
+      typeFromUrl ||
+      parkingFromUrl ||
+      offerFromUrl ||
+      furnishedFromUrl ||
+      sortFromUrl ||
+      orderFromUrl
+    ) {
       setSearchData({
-        ...searchData,
-        searchTerm: searchTermFromUrl.toString(),
+        searchTerm: searchTermFromUrl || "",
+        type: typeFromUrl || "all",
+        parking: parkingFromUrl === "true" ? true : false,
+        offer: offerFromUrl === "true" ? true : false,
+        furnished: furnishedFromUrl === "true" ? true : false,
+        sort: sortFromUrl || "createdAt",
+        order: orderFromUrl || "desc",
       });
     }
   }, [location.search]);
