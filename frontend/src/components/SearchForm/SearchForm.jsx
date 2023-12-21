@@ -1,21 +1,68 @@
 import { useEffect, useState } from "react";
 
 const SearchForm = () => {
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchData, setSearchData] = useState({
+    searchTerm: "",
+    type: "all",
+    parking: false,
+    offer: false,
+    furnished: false,
+    sort: "createdAt",
+    order: "desc",
+  });
+
+  const handleChange = (e) => {
+    if (
+      e.target.id === "all" ||
+      e.target.id === "rent" ||
+      e.target.id === "sale"
+    ) {
+      setSearchData({ ...searchData, type: e.target.id });
+    }
+    if (e.target.id === "searchTerm") {
+      setSearchData({ ...searchData, searchTerm: e.target.value });
+    }
+    if (
+      e.target.id === "parking" ||
+      e.target.id === "furnished" ||
+      e.target.id === "offer"
+    ) {
+      setSearchData({
+        ...searchData,
+        [e.target.id]:
+          e.target.checked || e.target.checked === "true" ? true : false,
+      });
+    }
+    if (e.target.id === "sortOrder") {
+      // const [sort, order] = e.target.value.split("_");
+      const sort = e.target.value.split("_")[0] || "createdAt";
+      const order = e.target.value.split("_")[1] || "desc";
+      setSearchData({ ...searchData, sort, order });
+    }
+  };
+
+  console.log(searchData);
 
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
     const searchTermFromUrl = urlParams.get("searchTerm");
 
     if (searchTermFromUrl) {
-      setSearchTerm(searchTermFromUrl);
+      setSearchData({
+        ...searchData,
+        searchTerm: searchTermFromUrl.toString(),
+      });
     }
-  }, []);
+  }, [location.search]);
 
   const handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     //TODO form submit logic
-  }
+    // const urlParams = new URLSearchParams(window.location.search);
+    // urlParams.set("searchTerm", searchData.searchTerm);
+    // const searchQuery = urlParams.toString();
+    // navigate(`/search?${searchQuery}`);
+  };
 
   return (
     <form className="flex flex-col gap-8" onSubmit={handleSubmit}>
@@ -28,8 +75,8 @@ const SearchForm = () => {
           type="text"
           name="searchTerm"
           id="searchTerm"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
+          value={searchData.searchTerm}
+          onChange={handleChange}
           placeholder="Search..."
         />
       </div>
@@ -38,19 +85,47 @@ const SearchForm = () => {
           Type:
         </label>
         <div>
-          <input className="w-5" type="checkbox" name="all" id="all" />
+          <input
+            className="w-5"
+            type="checkbox"
+            name="all"
+            id="all"
+            onChange={handleChange}
+            checked={searchData.type === "all"}
+          />
           <span>Rent & Sale</span>
         </div>
         <div>
-          <input className="w-5" type="checkbox" name="rent" id="rent" />
+          <input
+            className="w-5"
+            type="checkbox"
+            name="rent"
+            id="rent"
+            onChange={handleChange}
+            checked={searchData.type === "rent"}
+          />
           <span>Rent</span>
         </div>
         <div>
-          <input className="w-5" type="checkbox" name="sale" id="sale" />
+          <input
+            className="w-5"
+            type="checkbox"
+            name="sale"
+            id="sale"
+            onChange={handleChange}
+            checked={searchData.type === "sale"}
+          />
           <span>Sale</span>
         </div>
         <div>
-          <input className="w-5" type="checkbox" name="offer" id="offer" />
+          <input
+            className="w-5"
+            type="checkbox"
+            name="offer"
+            id="offer"
+            onChange={handleChange}
+            checked={searchData.offer}
+          />
           <span>Offer</span>
         </div>
       </div>
@@ -59,7 +134,14 @@ const SearchForm = () => {
           Amenities:
         </label>
         <div>
-          <input className="w-5" type="checkbox" name="parking" id="parking" />
+          <input
+            className="w-5"
+            type="checkbox"
+            name="parking"
+            id="parking"
+            onChange={handleChange}
+            checked={searchData.parking}
+          />
           <span>Parking</span>
         </div>
         <div>
@@ -68,6 +150,8 @@ const SearchForm = () => {
             type="checkbox"
             name="furnished"
             id="furnished"
+            onChange={handleChange}
+            checked={searchData.furnished}
           />
           <span>Furnished</span>
         </div>
@@ -80,11 +164,13 @@ const SearchForm = () => {
           className="border rounded-lg p-2 text-center"
           name="sortOrder"
           id="sortOrder"
+          onChange={handleChange}
+          defaultValue={"createdAt_desc"}
         >
-          <option value="price-hight-to-low">Price hight to low</option>
-          <option value="price-low-to-hight">Price low to hight</option>
-          <option value="latest">Latest</option>
-          <option value="oldest">Oldest</option>
+          <option value="regularPrice_desc">Price hight to low</option>
+          <option value="regularPrice_asc">Price low to hight</option>
+          <option value="createdAt_desc">Latest</option>
+          <option value="createdAt_asc">Oldest</option>
         </select>
       </div>
       <button
