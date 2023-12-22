@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
 
-const SearchForm = () => {
+const SearchForm = ({ setHasError }) => {
   const [searchData, setSearchData] = useState({
     searchTerm: "",
     type: "all",
@@ -13,7 +14,6 @@ const SearchForm = () => {
   });
   const [listings, setListings] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [hasError, setHasError] = useState(false);
 
   const navigate = useNavigate();
 
@@ -75,7 +75,7 @@ const SearchForm = () => {
         sort: sortFromUrl || "createdAt",
         order: orderFromUrl || "desc",
       });
-      
+
       const fetchListings = async () => {
         setIsLoading(true);
         try {
@@ -83,7 +83,7 @@ const SearchForm = () => {
           const res = await fetch(`/api/listing/search?${searchQuery}`);
           const data = await res.json();
           setIsLoading(false);
-          if (data.success === "false") {
+          if (data.success === false) {
             setHasError(true);
           }
           setListings(data);
@@ -230,6 +230,10 @@ const SearchForm = () => {
       </button>
     </form>
   );
+};
+
+SearchForm.propTypes = {
+  setHasError: PropTypes.func.isRequired,
 };
 
 export default SearchForm;
