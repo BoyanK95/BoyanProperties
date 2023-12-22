@@ -11,6 +11,9 @@ const SearchForm = () => {
     sort: "createdAt",
     order: "desc",
   });
+  const [listings, setListings] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [hasError, setHasError] = useState(false);
 
   const navigate = useNavigate();
 
@@ -43,7 +46,7 @@ const SearchForm = () => {
     }
   };
 
-  /** Get searchData from URL */
+  /** Get searchData from URL and fetch and display listing*/
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
     const searchTermFromUrl = urlParams.get("searchTerm");
@@ -72,8 +75,29 @@ const SearchForm = () => {
         sort: sortFromUrl || "createdAt",
         order: orderFromUrl || "desc",
       });
+      
+      const fetchListings = async () => {
+        setIsLoading(true);
+        try {
+          const searchQuery = urlParams.toString();
+          const res = await fetch(`/api/listing/search?${searchQuery}`);
+          const data = await res.json();
+          setIsLoading(false);
+          if (data.success === "false") {
+            setHasError(true);
+          }
+          setListings(data);
+          console.log("data", data);
+        } catch (error) {
+          setIsLoading(false);
+          setHasError(true);
+        }
+      };
+      fetchListings();
     }
   }, [location.search]);
+
+  console.log("listings", listings);
 
   const handleSubmit = (e) => {
     e.preventDefault();
