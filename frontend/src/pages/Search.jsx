@@ -7,14 +7,14 @@ const Search = () => {
   const [hasError, setHasError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  console.log(listings);
-
   const handleRetry = () => {
-    window.location.reload()
-    setHasError(false)
-    setIsLoading(false)
+    window.location.reload();
+    setHasError(false);
+    setIsLoading(false);
   };
 
+  console.log("=============");
+  console.log(listings);
   return (
     <main className="flex flex-col md:flex-row">
       {hasError && (
@@ -31,9 +31,20 @@ const Search = () => {
               setIsLoading={setIsLoading}
             />
           </div>
-          <div className="text-3xl font-semibold border-b p-3 text-slate-700 text-center items-center mt-2">
-            <h1>Listing results:</h1>
-          </div>
+          {!isLoading && listings.length === 0 && (
+            <div className="flex-1">
+              <p className="text-3xl p-3 text-slate-700 text-center mt-5 items-center font-semibold">
+                No listings found!
+              </p>
+            </div>
+          )}
+          {!isLoading && listings.length > 0 && (
+            <div className="flex-1">
+              <h1 className="text-3xl font-semibold border-b h-full p-3 text-slate-700 text-center items-center mt-2">
+                Listing results:
+              </h1>
+            </div>
+          )}
         </>
       )}
     </main>
