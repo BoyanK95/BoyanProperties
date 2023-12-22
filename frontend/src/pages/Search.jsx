@@ -3,12 +3,17 @@ import SearchForm from "../components/SearchForm/SearchForm";
 import ErrorState from "../components/ErrorState/ErrorState";
 
 const Search = () => {
+  const [listings, setListings] = useState([]);
   const [hasError, setHasError] = useState(false);
-  console.log(hasError);
+  const [isLoading, setIsLoading] = useState(false);
+
+  console.log(listings);
 
   const handleRetry = () => {
-    
-  }
+    setHasError(false)
+    setIsLoading(false)
+  };
+
   return (
     <main className="flex flex-col md:flex-row">
       {hasError && (
@@ -19,7 +24,11 @@ const Search = () => {
       {!hasError && (
         <>
           <div className="p-7 border-b-2 md:border-r-2 md:min-h-screen">
-            <SearchForm setHasError={setHasError} />
+            <SearchForm
+              setHasError={setHasError}
+              setListings={setListings}
+              setIsLoading={setIsLoading}
+            />
           </div>
           <div className="text-3xl font-semibold border-b p-3 text-slate-700 text-center items-center mt-2">
             <h1>Listing results:</h1>
