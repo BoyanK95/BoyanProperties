@@ -72,7 +72,7 @@ export const searchForListings = async (req, res, next) => {
     let type = req.query.type;
     let searchTerm = req.query.searchTerm || "";
     let sort = req.query.sort || "createdAt";
-    let order = req.query.sort || "desc";
+    let order = req.query.order || "desc";
 
     if (offer === undefined || offer === "false") {
       offer = { $in: [false, true] };
