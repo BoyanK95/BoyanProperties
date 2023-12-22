@@ -10,6 +10,7 @@ const Search = () => {
   console.log(listings);
 
   const handleRetry = () => {
+    window.location.reload()
     setHasError(false)
     setIsLoading(false)
   };
