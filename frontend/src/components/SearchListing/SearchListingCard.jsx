@@ -1,9 +1,11 @@
-import React from 'react'
+import PropTypes from "prop-types";
 
-const SearchListingCard = () => {
-  return (
-    <div>SearchListingCard</div>
-  )
-}
+const SearchListingCard = ({ listing }) => {
+  return <p>{listing.name}</p>;
+};
 
-export default SearchListingCard
+SearchListingCard.propTypes = {
+  listing: PropTypes.object.isRequired,
+};
+
+export default SearchListingCard;
