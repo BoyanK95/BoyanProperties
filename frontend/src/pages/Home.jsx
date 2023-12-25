@@ -66,6 +66,7 @@ function Home() {
           <Listings
             listingsArr={offerListings}
             listingsHeader={"Recent offers"}
+            listingLink={`/search?offer=true`}
             listingsLinkContent={"Show more offers"}
           />
         )}
@@ -73,6 +74,7 @@ function Home() {
           <Listings
             listingsArr={saleListings}
             listingsHeader={"Find a home to buy"}
+            listingLink={"/search?type=sale"}
             listingsLinkContent={"Show more homes for sale"}
           />
         )}
@@ -80,6 +82,7 @@ function Home() {
           <Listings
             listingsArr={rentListings}
             listingsHeader={"Find a good place to rent"}
+            listingLink={"/search?type=rent"}
             listingsLinkContent={"Show more properties for rent"}
           />
         )}
