@@ -3,7 +3,12 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import SearchListingCard from "../SearchListing/SearchListingCard";
 
-const Listings = ({ listingsArr, listingsHeader, listingsLinkContent }) => {
+const Listings = ({
+  listingsArr,
+  listingsHeader,
+  listingLink,
+  listingsLinkContent,
+}) => {
   return (
     <div>
       <div className="my-5">
@@ -12,7 +17,7 @@ const Listings = ({ listingsArr, listingsHeader, listingsLinkContent }) => {
         </h2>
         <Link
           className="text-sm text-blue-700 hover:underline"
-          to={`/search?offer=true`}
+          to={listingLink}
         >
           {listingsLinkContent}
         </Link>
@@ -29,6 +34,7 @@ const Listings = ({ listingsArr, listingsHeader, listingsLinkContent }) => {
 Listings.propTypes = {
   listingsArr: PropTypes.array.isRequired,
   listingsHeader: PropTypes.string,
+  listingLink: PropTypes.string,
   listingsLinkContent: PropTypes.string,
 };
 
