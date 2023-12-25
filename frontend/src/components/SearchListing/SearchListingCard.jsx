@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { MdLocationOn } from "react-icons/md";
-import { defaultHousePic } from "../../assets/defaultHouseListingPic";
+import {  defaultWholeHousePic } from "../../assets/defaultHouseListingPic";
 import { currency } from "../../constants/currency";
 
 const SearchListingCard = ({ listing }) => {
@@ -10,7 +10,7 @@ const SearchListingCard = ({ listing }) => {
       <Link to={`/listing/${listing._id}`}>
         <img
           className="h-[320px] sm:h-[220px] w-full object-cover hover:scale-110 trnasition-scale duration-300"
-          src={listing.imageUrls[0] || defaultHousePic}
+          src={listing.imageUrls[0].includes(".") ?listing.imageUrls[0]:  defaultWholeHousePic}
           alt="listing-cover"
         />
         <div className="p-3 flex flex-col gap-2 w-full">
