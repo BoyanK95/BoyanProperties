@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom'
 
 const TopHomeComponent = () => {
   return (
-    <div className="flex flex-col gap-3 max-w-6xl mx-auto mt-7 pl-3">
+    <div className="flex flex-col gap-3 max-w-6xl mx-auto mt-7 p-28 pl-3">
       <h1 className="text-slate-700 text-3xl lg:text-6xl font-bold">
         Find your next <span className="text-slate-500">perfect</span>
         <br />
