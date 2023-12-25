@@ -14,8 +14,6 @@ const Search = () => {
     setIsLoading(false);
   };
 
-  console.log("=============");
-  console.log(listings);
   return (
     <main className="flex flex-col md:flex-row">
       {hasError && (
