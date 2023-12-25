@@ -1,3 +1,4 @@
+import TopHomeComponent from "../components/HomeComponents/TopHomeComponent";
 import { useUserCtx } from "../context/userCtx";
 
 function Home() {
@@ -5,9 +6,9 @@ function Home() {
 
   console.log(userState);
   return (
-    <div>
-      <h1>Home</h1>
-    </div>
+    <main>
+      <TopHomeComponent />
+    </main>
   );
 }
 
