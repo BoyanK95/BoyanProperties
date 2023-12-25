@@ -6,7 +6,7 @@ import SearchListingCard from "../SearchListing/SearchListingCard";
 const Listings = ({ listingsArr, listingsHeader, listingsLinkContent }) => {
   return (
     <div>
-      <div className="my-3">
+      <div className="my-5">
         <h2 className="text-2xl font-semibold text-slate-600">
           {listingsHeader}
         </h2>

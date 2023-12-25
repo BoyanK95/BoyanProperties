@@ -1,13 +1,9 @@
 import { useEffect, useState } from "react";
 import TopHomeComponent from "../components/HomeComponents/TopHomeComponent";
-import { useUserCtx } from "../context/userCtx";
 import SwiperComponent from "../components/SwiperComponent/SwiperComponent";
-import SearchListingCard from "../components/SearchListing/SearchListingCard";
-import { Link } from "react-router-dom";
 import Listings from "../components/HomeComponents/Listings";
 
 function Home() {
-  // const { userState } = useUserCtx();
   const [offerListings, setOfferListings] = useState([]);
   const [saleListings, setSaleListings] = useState([]);
   const [rentListings, setRentListings] = useState([]);
@@ -56,6 +52,8 @@ function Home() {
       }
     };
     fetchOfferListings();
+    fetchRentalListings();
+    fetchSaleListings();
   }, []);
   console.log(offerListings);
 
@@ -69,6 +67,20 @@ function Home() {
             listingsArr={offerListings}
             listingsHeader={"Recent offers"}
             listingsLinkContent={"Show more offers"}
+          />
+        )}
+        {saleListings && saleListings.length && (
+          <Listings
+            listingsArr={saleListings}
+            listingsHeader={"Find a home to buy"}
+            listingsLinkContent={"Show more homes for sale"}
+          />
+        )}
+        {rentListings && rentListings.length && (
+          <Listings
+            listingsArr={rentListings}
+            listingsHeader={"Find a good place to rent"}
+            listingsLinkContent={"Show more properties for rent"}
           />
         )}
       </div>
