@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-// import SearchListingCard from "../components/SearchListing/SearchListingCard";
 import PropTypes from "prop-types";
 import SearchListingCard from "../SearchListing/SearchListingCard";
+import ListingsSkeletonLoader from "./ListingsSkeletonLoader";
 
 const Listings = ({
   listingsArr,
@@ -9,6 +9,11 @@ const Listings = ({
   listingLink,
   listingsLinkContent,
 }) => {
+    
+  if (!listingsArr.length) {
+    return <ListingsSkeletonLoader />;
+  }
+
   return (
     <div>
       <div className="my-5">
