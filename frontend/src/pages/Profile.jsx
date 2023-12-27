@@ -1,8 +1,8 @@
 import { useState } from "react";
-import ProfileAvatar from "../components/ProfileAvatar";
+import ProfileAvatar from "../components/ProfileComponents/ProfileAvatar/ProfileAvatar";
 import { useUserCtx } from "../context/userCtx";
-import UserListingsCard from "../components/UserListingsCard";
-import CreateListingsBtn from "../components/CreateListingsBtn";
+import UserListingsCard from "../components/ProfileComponents/UserListings/UserListingsCard";
+import CreateListingsBtn from "../components/ProfileComponents/CreateListingButton/CreateListingsBtn";
 
 function Profile() {
   const {

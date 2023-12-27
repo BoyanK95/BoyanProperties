@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState } from "react";
-import { useUserCtx } from "../context/userCtx";
-import { autoProfilePicString } from "../assets/autoProfilePic";
+import { useUserCtx } from "../../../context/userCtx";
+import { autoProfilePicString } from "../../../assets/autoProfilePic";
 import {
   getDownloadURL,
   getStorage,
   ref,
   uploadBytesResumable,
 } from "firebase/storage";
-import { app } from "../firebase";
+import { app } from "../../../firebase";
 
 // eslint-disable-next-line react/prop-types
 export default function ProfileAvatar({ setFormData, formData }) {
