@@ -18,7 +18,6 @@ function Home() {
       try {
         const res = await fetch(`/api/listing/search?offer=true&limit=3`);
         const data = await res.json();
-        console.log(data);
         setOfferListingsLoading(false);
         if (data.success === false) {
           setListingsError(data.message);
@@ -34,7 +33,6 @@ function Home() {
       try {
         const res = await fetch(`/api/listing/search?type=sale&limit=3`);
         const data = await res.json();
-        console.log(data);
         if (data.success === false) {
           setListingsError(data.message);
         }
@@ -48,7 +46,6 @@ function Home() {
       try {
         const res = await fetch(`/api/listing/search?type=rent&limit=3`);
         const data = await res.json();
-        console.log(data);
         if (data.success === false) {
           setListingsError(data.message);
         }
@@ -61,8 +58,6 @@ function Home() {
     fetchRentalListings();
     fetchSaleListings();
   }, []);
-  console.log(offerListings);
-  console.log(offerListingsLoading);
 
   const handleRetry = () => {
     window.location.reload();
