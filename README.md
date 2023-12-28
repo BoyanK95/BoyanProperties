@@ -56,5 +56,15 @@ Open a browser and go to preview locally:
 http://localhost:5173/
 
 
-### Still in development and not deployed! 
-#### Coming soon ...
+## Deployed using render platform :rocket:
+You can visit the finished product using the link down bellow:
+
+[MERN-properties](https://mern-properties.onrender.com/)
+
+
+
+### Conclusion
+BoyanProperties is a demonstration project created to hone and showcase my skills in developing full-stack applications using the MERN (MongoDB, Express, React, Node) stack. Throughout the development process, I focused on implementing fundamental real estate marketplace features, including CRUD operations, account authentication, and advanced search functionality.
+
+#### Note:
+BoyanProperties serves as a demonstration of my MERN stack development skills and is designed for learning purposes. It is a work in progress, and feedback or contributions are welcome. Feel free to explore the code, provide suggestions, and use it as a reference for your own projects. Happy coding! :computer:
