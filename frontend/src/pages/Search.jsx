@@ -26,10 +26,17 @@ const Search = () => {
     setListings([...listings, ...data]);
   };
 
-  const handleRetry = () => {
-    window.location.reload();
+  const handleRetry = async () => {
+    const urlParams = new URLSearchParams(location.search);
+    const searchQuery = urlParams.toString();
+    const res = await fetch(`/api/listing/search?${searchQuery}`);
+    const data = await res.json();
+    if (data.success === false) {
+      setHasError(true);
+    }
     setHasError(false);
     setIsLoading(false);
+    setListings(data);
   };
 
   return (
