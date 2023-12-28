@@ -7,6 +7,23 @@ const Search = () => {
   const [listings, setListings] = useState([]);
   const [hasError, setHasError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [showMoreListings, setShowMoreListings] = useState(false);
+
+  const onShowMoreListingsClick = async () => {
+    const startIndex = listings.length;
+    const urlParams = new URLSearchParams(location.search);
+    urlParams.set("startIndex", startIndex);
+    const searchQuery = urlParams.toString();
+    const res = await fetch(`/api/listing/search?${searchQuery}`);
+    const data = await res.json();
+    if (data.success === false) {
+      setHasError(true);
+    }
+    if (data.length < 9) {
+      setShowMoreListings(false);
+    }
+    setListings([...listings, ...data]);
+  };
 
   const handleRetry = () => {
     window.location.reload();
@@ -28,6 +45,7 @@ const Search = () => {
               setHasError={setHasError}
               setListings={setListings}
               setIsLoading={setIsLoading}
+              setShowMoreListings={setShowMoreListings}
             />
           </div>
           {!isLoading && listings.length === 0 && (
@@ -55,14 +73,14 @@ const Search = () => {
                     <SearchListingCard key={listing._id} listing={listing} />
                   ))}
 
-                {/* {showMore && (
+                {showMoreListings && (
                   <button
-                    onClick={onShowMoreClick}
+                    onClick={onShowMoreListingsClick}
                     className="text-green-700 hover:underline p-7 text-center w-full"
                   >
                     Show more
                   </button>
-                )} */}
+                )}
               </div>
             </div>
           )}

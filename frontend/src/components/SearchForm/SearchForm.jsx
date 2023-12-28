@@ -2,7 +2,12 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 
-const SearchForm = ({ setHasError, setListings, setIsLoading }) => {
+const SearchForm = ({
+  setHasError,
+  setListings,
+  setShowMoreListings,
+  setIsLoading,
+}) => {
   const [searchData, setSearchData] = useState({
     searchTerm: "",
     type: "all",
@@ -84,6 +89,9 @@ const SearchForm = ({ setHasError, setListings, setIsLoading }) => {
           if (data.success === false) {
             setHasError(true);
           }
+          if (data.length > 8) {
+            setShowMoreListings(true);
+          }
           setListings(data);
         } catch (error) {
           setIsLoading(false);
@@ -93,7 +101,6 @@ const SearchForm = ({ setHasError, setListings, setIsLoading }) => {
       fetchListings();
     }
   }, [location.search]);
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -232,6 +239,7 @@ SearchForm.propTypes = {
   setHasError: PropTypes.func.isRequired,
   setIsLoading: PropTypes.func.isRequired,
   setListings: PropTypes.func.isRequired,
+  setShowMoreListings: PropTypes.func.isRequired,
 };
 
 export default SearchForm;
