@@ -2,6 +2,7 @@ import { useState } from "react";
 import SearchForm from "../components/SearchForm/SearchForm";
 import ErrorState from "../components/ErrorState/ErrorState";
 import SearchListingCard from "../components/SearchListing/SearchListingCard";
+import SkeletonSearchListingCard from "../components/LoaderIcons/SkeletonSearchListingsLoader";
 
 const Search = () => {
   const [listings, setListings] = useState([]);
@@ -55,17 +56,16 @@ const Search = () => {
               </p>
             </div>
           )}
-          {!isLoading && listings.length > 0 && (
+          {listings.length > 0 && (
             <div className="flex-1">
               <h1 className="text-3xl font-semibold border-b p-3 text-slate-700 mt-5">
                 Listing results:
               </h1>
               <div className="p-7 flex flex-wrap gap-4">
-                {isLoading && (
-                  <p className="text-xl text-slate-700 text-center w-full">
-                    Loading...
-                  </p>
-                )}
+                {isLoading &&
+                  listings.map((_, idx) => (
+                    <SkeletonSearchListingCard key={idx} />
+                  ))}
 
                 {!isLoading &&
                   listings &&
