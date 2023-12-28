@@ -1,1 +1,1 @@
-export const pageTitle = 'Balcan properties'
+export const pageTitle = 'Balkan Properties'
