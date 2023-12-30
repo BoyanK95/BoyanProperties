@@ -1,16 +1,17 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useUserCtx } from "../../../context/userCtx";
 import { autoProfilePicString } from "../../../assets/autoProfilePic";
 import Searchbar from "../Searchbar/Searchbar";
 import { headerImg } from "../../../assets/headerImgAddress";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { useState } from "react";
 import { ImCross } from "react-icons/im";
 
 function Header() {
   const { userState, signOutUserStart, signOutUserSuccess, signOutUserFail } =
     useUserCtx();
   const [showLinks, setShowLinks] = useState(false);
+  const [isMobileView, setIsMobileView] = useState(window.innerWidth < 640);
 
   const toggleHamburger = () => {
     setShowLinks(!showLinks);
@@ -32,6 +33,18 @@ function Header() {
       signOutUserFail(error.message);
     }
   };
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobileView(window.innerWidth < 640);
+    };
+    // Attach the event listener
+    window.addEventListener("resize", handleResize);
+    // Detach the event listener on component unmount
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
   console.log(window.innerWidth);
 
   const MobileLinksComponent = () => {
@@ -112,7 +125,7 @@ function Header() {
                 )}
               </>
             ) : userState.currentUser.avatar ? (
-              window.innerWidth >= 640 ? (
+              !isMobileView ? (
                 <Link to={"profile"} className="hidden sm:inline">
                   <img
                     className="rounded-full h-8 w-8 object-cover"
@@ -130,20 +143,27 @@ function Header() {
                   onError={(e) => (e.target.src = autoProfilePicString)}
                 />
               )
-            ) : (
+            ) : !isMobileView ? (
               <Link className="hidden sm:inline">
                 <img
-                  // onClick={toggleHamburger}
                   className="rounded-full h-8 w-8 object-cover"
                   src={autoProfilePicString}
                   alt="auto-profile-picture"
                 />
               </Link>
+            ) : (
+              <img
+                onClick={toggleHamburger}
+                className="rounded-full h-8 w-8 object-cover"
+                src={userState.currentUser.avatar}
+                alt="profile-picture"
+                onError={(e) => (e.target.src = autoProfilePicString)}
+              />
             )}
           </ul>
         </div>
       </header>
-      {showLinks && <MobileLinksComponent />}
+      {showLinks && isMobileView && <MobileLinksComponent />}
     </>
   );
 }
