@@ -11,11 +11,13 @@ function Header() {
     <header className="bg-slate-200 shadow-md">
       <div className="flex justify-between items-center max-w-6xl mx-auto p-3">
         <Link to="/">
-          <h1 className="font-bold text-sm sm:text-xl flex flex-wrap">
-            <span className="text-slate-700">Property</span>
-            <span className="text-slate-500">BG</span>
+          <div className="flex">
+            <h1 className="font-bold text-sm sm:text-xl flex flex-wrap">
+              <span className="text-slate-700 hidden sm:inline">Property</span>
+              <span className="text-slate-500 hidden sm:inline">BG</span>
+            </h1>
             <img className="h-9 ml-2" src={headerImg} alt="header-img" />
-          </h1>
+          </div>
         </Link>
         <Searchbar />
         <ul className="flex gap-4">
