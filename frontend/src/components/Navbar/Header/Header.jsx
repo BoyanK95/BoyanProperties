@@ -5,6 +5,7 @@ import Searchbar from "../Searchbar/Searchbar";
 import { headerImg } from "../../../assets/headerImgAddress";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useState } from "react";
+import { ImCross } from "react-icons/im";
 
 function Header() {
   const { userState } = useUserCtx();
@@ -21,28 +22,19 @@ function Header() {
 
   const MobileLinksComponent = () => {
     return (
-      <ul className="flex flex-col gap-4 sm:flex-row bg-white shadow-md rounded-md absolute right-0 p-3 z-50 top-16">
+      <ul className="flex flex-col gap-4 sm:flex-row bg-slate-100 shadow-lg rounded-md absolute right-0 p-3 z-50 top-12">
         <Link to="/">
-          <li
-            className="text-slate-700 hover:underline"
-            onClick={closeHamburger}
-          >
+          <li className="text-slate-700" onClick={closeHamburger}>
             Home
           </li>
         </Link>
         <Link to="about">
-          <li
-            className="text-slate-700 hover:underline"
-            onClick={closeHamburger}
-          >
+          <li className="text-slate-700" onClick={closeHamburger}>
             About
           </li>
         </Link>
         <Link to="sign-in">
-          <li
-            className=" text-slate-700 hover:underline"
-            onClick={closeHamburger}
-          >
+          <li className=" text-slate-700" onClick={closeHamburger}>
             Sign in
           </li>
         </Link>
@@ -84,10 +76,15 @@ function Header() {
                     Sign in
                   </li>
                 </Link>
-                {!showLinks && (
+                {!showLinks ? (
                   <GiHamburgerMenu
-                    className="sm:hidden"
+                    className="sm:hidden mr-3"
                     onClick={toggleHamburger}
+                  />
+                ) : (
+                  <ImCross
+                    className="sm:hidden mr-3"
+                    onClick={closeHamburger}
                   />
                 )}
               </>
