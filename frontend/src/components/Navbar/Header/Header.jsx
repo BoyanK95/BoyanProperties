@@ -8,36 +8,59 @@ import { useState } from "react";
 import { ImCross } from "react-icons/im";
 
 function Header() {
-  const { userState } = useUserCtx();
+  const { userState, signOutUserStart, signOutUserSuccess, signOutUserFail } =
+    useUserCtx();
   const [showLinks, setShowLinks] = useState(false);
 
   const toggleHamburger = () => {
     setShowLinks(!showLinks);
   };
-  console.log(showLinks);
 
   const closeHamburger = () => {
     setShowLinks(false);
   };
 
+  const handleSignOut = async () => {
+    closeHamburger();
+    try {
+      signOutUserStart();
+      const res = await fetch("/api/auth/signout");
+      const data = await res.json();
+      if (data.success === false) return signOutUserFail(data.message);
+      signOutUserSuccess();
+    } catch (error) {
+      signOutUserFail(error.message);
+    }
+  };
+  console.log(window.innerWidth);
+
   const MobileLinksComponent = () => {
     return (
-      <ul className="flex flex-col gap-4 sm:flex-row bg-slate-100 shadow-lg rounded-md absolute right-0 p-3 z-50 top-12">
-        <Link to="/">
-          <li className="text-slate-700" onClick={closeHamburger}>
-            Home
-          </li>
-        </Link>
+      <ul className="flex flex-col gap-4 sm:right-64 bg-slate-100 shadow-lg rounded-md absolute right-0 p-3 z-50 top-12">
+        {userState.currentUser && (
+          <Link to="profile">
+            <li className="text-slate-700" onClick={closeHamburger}>
+              Profile
+            </li>
+          </Link>
+        )}
         <Link to="about">
-          <li className="text-slate-700" onClick={closeHamburger}>
+          <li className="text-slate-700 sm:inline" onClick={closeHamburger}>
             About
           </li>
         </Link>
-        <Link to="sign-in">
-          <li className=" text-slate-700" onClick={closeHamburger}>
-            Sign in
+        {userState.currentUser && (
+          <li className="text-slate-700" onClick={handleSignOut}>
+            Sign Out
           </li>
-        </Link>
+        )}
+        {!userState.currentUser && (
+          <Link to="sign-in">
+            <li className=" text-slate-700" onClick={closeHamburger}>
+              Sign in
+            </li>
+          </Link>
+        )}
       </ul>
     );
   };
@@ -89,17 +112,28 @@ function Header() {
                 )}
               </>
             ) : userState.currentUser.avatar ? (
-              <Link to="profile">
+              window.innerWidth >= 640 ? (
+                <Link to={"profile"} className="hidden sm:inline">
+                  <img
+                    className="rounded-full h-8 w-8 object-cover"
+                    src={userState.currentUser.avatar}
+                    alt="profile-picture"
+                    onError={(e) => (e.target.src = autoProfilePicString)}
+                  />
+                </Link>
+              ) : (
                 <img
+                  onClick={toggleHamburger}
                   className="rounded-full h-8 w-8 object-cover"
                   src={userState.currentUser.avatar}
                   alt="profile-picture"
                   onError={(e) => (e.target.src = autoProfilePicString)}
                 />
-              </Link>
+              )
             ) : (
-              <Link to="profile">
+              <Link className="hidden sm:inline">
                 <img
+                  // onClick={toggleHamburger}
                   className="rounded-full h-8 w-8 object-cover"
                   src={autoProfilePicString}
                   alt="auto-profile-picture"
