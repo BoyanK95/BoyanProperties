@@ -76,7 +76,7 @@ function Home() {
         {offerListings &&
           !listingsError &&
           !offerListingsLoading &&
-          offerListings.length > 0 && (
+          !!offerListings.length > 0 && (
             <Listings
               listingsArr={offerListings}
               listingsHeader={"Recent offers"}
@@ -84,7 +84,7 @@ function Home() {
               listingsLinkContent={"Show more offers"}
             />
           )}
-        {saleListings && !listingsError && saleListings.length && (
+        {saleListings && !listingsError && !!saleListings.length && (
           <Listings
             listingsArr={saleListings}
             listingsHeader={"Find a home to buy"}
@@ -92,7 +92,7 @@ function Home() {
             listingsLinkContent={"Show more homes for sale"}
           />
         )}
-        {rentListings && !listingsError && rentListings.length && (
+        {rentListings && !listingsError && !!rentListings.length && (
           <Listings
             listingsArr={rentListings}
             listingsHeader={"Find a good place to rent"}
